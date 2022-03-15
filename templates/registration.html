@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h1>Registration</h1>
+  
+  <h2>Create an Account</h2>
+  <form action="/registration" method="POST">
+
+    <div class="row">
+      <div class="col">
+        <label class="form-label">First Name</label>
+        <input type="text" class="form-control" placeholder="First name" aria-label="First name" name="fname">
+      </div>
+      
+      <div class="col">
+        <label class="form-label">Last Name</label>
+        <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" name="lname">
+      </div>
+    </div>
+
+    <div class="col-6 mb-3">
+      <label class="form-label">Home Zip Code</label>
+      <input name="home_zip" type="integer" class="form-control" placeholder="Home Zip Code">
+    </div>
+
+    <div class="col-6 mb-3">
+      <label class="form-label">Email address</label>
+      <input name="email" type="email" class="form-control" aria-describedby="emailHelp">
+      <div class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+
+    <div class="col-6 mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input name="password" type="password" class="form-control" >
+    </div>
+  
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+  </form>
+
+{% endblock %}
+
+<div class="mb-3 form-check">
+  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+  <label class="form-check-label" for="exampleCheck1">I agree to terms and conditions</label>
+</div>
