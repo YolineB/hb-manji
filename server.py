@@ -4,8 +4,14 @@ from flask import (Flask, render_template, request, flash, session,
                    redirect, jsonify)
 
 import crud
+import yelp_search
 #Helps reflect error w/ undefined variables
 from jinja2 import StrictUndefined
+from pprint import pformat
+import os
+import json
+import requests
+
 
 app = Flask(__name__)
 app.secret_key = 'dev'
@@ -13,10 +19,11 @@ app.jinja_env.undefined = StrictUndefined
 
 from model import connect_to_db, db
 
+
+
 @app.route('/')
 def log_in_page():
     """First page to prompt log-in"""
-
 
     return render_template('log_in_page.html')
 
@@ -75,7 +82,30 @@ def home_page():
     """User main page """
     
     return render_template('homepage.html')
-    
+
+@app.route('/add_restaurant')
+def add_restaurant():
+    """ Add a restaurant to user list """
+
+    return render_template('add_restaurants.html')
+
+
+@app.route('/api/resaurant_search')
+def search_restaurants():
+    """Search for restaurants on Yelp"""
+    term = request.json.get("term")
+    location = request.json.get("city")
+
+    print('/n' *20)
+    print(term)
+    print(location)
+    print('/n' *20)
+
+    results = search_restaurant(term, location)
+
+    return jsonify(results)
+
+
 
 if __name__ == '__main__':
     connect_to_db(app)

@@ -21,7 +21,7 @@ class User(db.Model):
     def __repr__(self):
         """Provide output when printing """
 
-        return f"<User user_id= {self.user_id} name={self.fname} zip={self.home_zip}"
+        return f"<User user_id= {self.user_id} name={self.fname} zip={self.home_zip}>"
 
     #reccs = a list of Recc Objects
 

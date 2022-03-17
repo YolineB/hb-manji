@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
 
+{% block title %}Homepage{% endblock %}
+
 {% block body %}
 
 <h1> Why Hello There, {{user.fname}}</h1>
+
+
+<div> {{user}} </div>
+
+<a href="/add_restaurant"> Add a restaurant! </a>
+
+
 
 
 {% endblock %}
