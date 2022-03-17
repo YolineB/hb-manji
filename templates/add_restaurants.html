@@ -1,0 +1,61 @@
+
+{% extends 'base.html' %}
+
+    
+
+{% block body %}
+
+<div class="container" name="restaurant_search" >
+    
+    <div class="col">
+        <h2>Search for Restaurants</h2>
+  
+        <form id="restaurant_form">
+          
+            <label class="form-label above" for="search-keyword">Search Name of Restaurant</label>
+            <div class="row">
+                <input
+                id="search-keyword"
+                class="form-control"
+                type="text"
+                name="search-keyword"
+                >
+            </div>
+
+            <div class="col-5">
+                <label class="form-label above" for="search-city"> City </label>
+                <input
+                id="search-city"
+                class="form-control"
+                type="text"
+                name="search-city"
+                >
+            </div>
+
+            <label class="form-label above" for="search-zip"> Zip Code</label>
+            <div class="col-4">
+                <input
+                id="search-zip"
+                class="form-control"
+                type="text"
+                name="search-zip"
+                >
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-3">
+                    <input id="restaurant-search" type="submit" value="Show restaurant"class="btn btn-primary" name="retaurant-search">
+                </div>
+            </div>
+        </form>
+        
+        <div id="restaurants"> HELLOOO</div>
+
+    </div>
+
+    
+</div>
+
+<script src="/static/show_restaurants.js"></script>
+
+{% endblock %}
