@@ -4,11 +4,11 @@ from flask import (Flask, render_template, request, flash, session,
                    redirect, jsonify)
 
 import crud
+import os
 import yelp_search
 #Helps reflect error w/ undefined variables
 from jinja2 import StrictUndefined
 from pprint import pformat
-import os
 import json
 import requests
 
@@ -18,7 +18,6 @@ app.secret_key = 'dev'
 app.jinja_env.undefined = StrictUndefined
 
 from model import connect_to_db, db
-
 
 
 @app.route('/')
@@ -41,13 +40,14 @@ def process_login():
         return redirect("/")
     else:
         # log in and store user's email in session
-        session["user_email"] = user.email
-        
+        session["user_id"] = user.user_id
+            
         #pass user to template
         return render_template('homepage.html', user=user)
 
 @app.route('/register')
 def registration_form():
+    """Directs user to registration form """
 
     return render_template('registration.html')
 
@@ -80,31 +80,43 @@ def registration_request():
 @app.route('/homepage')
 def home_page():
     """User main page """
+    #if statement to make sure user name is in session
+    if 'user_id' not in session:
+        return redirect("/")
+   
     
     return render_template('homepage.html')
 
-@app.route('/add_restaurant')
+@app.route('/add_restaurant_page')
 def add_restaurant():
     """ Add a restaurant to user list """
 
-    return render_template('add_restaurants.html')
+
+    if 'user_id' not in session:
+        return redirect("/")
+
+    user_id = session['user_id']
+
+    return render_template('add_restaurants.html', user_id=user_id)
 
 
-@app.route('/api/resaurant_search')
+@app.route('/restaurant_search.json', methods=["POST"])
 def search_restaurants():
     """Search for restaurants on Yelp"""
     term = request.json.get("term")
     location = request.json.get("city")
 
-    print('/n' *20)
-    print(term)
-    print(location)
-    print('/n' *20)
-
-    results = search_restaurant(term, location)
-
+    results = yelp_search.search_restaurant(term, location)
+    
     return jsonify(results)
 
+@app.route('/add_to_restaurant_list/<yelp_id>')
+def add_to_user_list(yelp_id):
+    """Add to user's list if not already there"""
+
+   #-check if in users list
+   #if no, crud funtion to add to user's list
+   #session user_id
 
 
 if __name__ == '__main__':

@@ -5,57 +5,50 @@
 
 {% block body %}
 
+<h1> Restaurants to add to {{user_id}}'s list</h1>
+
 <div class="container" name="restaurant_search" >
     
     <div class="col">
         <h2>Search for Restaurants</h2>
-  
-        <form id="restaurant_form">
-          
-            <label class="form-label above" for="search-keyword">Search Name of Restaurant</label>
+        
+        <form>
             <div class="row">
+                <label for="search-keyword">Search Name of Restaurant</label>
                 <input
                 id="search-keyword"
-                class="form-control"
                 type="text"
                 name="search-keyword"
                 >
             </div>
 
             <div class="col-5">
-                <label class="form-label above" for="search-city"> City </label>
+                <label for="search-city"> City </label>
                 <input
                 id="search-city"
-                class="form-control"
                 type="text"
                 name="search-city"
                 >
             </div>
-
-            <label class="form-label above" for="search-zip"> Zip Code</label>
-            <div class="col-4">
-                <input
-                id="search-zip"
-                class="form-control"
-                type="text"
-                name="search-zip"
-                >
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-3">
-                    <input id="restaurant-search" type="submit" value="Show restaurant"class="btn btn-primary" name="retaurant-search">
-                </div>
-            </div>
+            
+            <button type="submit" class="btn btn-primary">Show Restaurant</button> 
         </form>
+
+        <h3> Search Results </h3>
         
-        <div id="restaurants"> HELLOOO</div>
+         <ul id="restaurants"> </ul>
 
     </div>
-
     
 </div>
 
 <script src="/static/show_restaurants.js"></script>
 
 {% endblock %}
+
+<!-- <select class="form-select" multiple aria-label="multiple select example">
+  <option selected>Open this select menu</option>
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+</select> -->

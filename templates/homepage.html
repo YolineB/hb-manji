@@ -4,12 +4,21 @@
 
 {% block body %}
 
-<h1> Why Hello There, {{user.fname}}</h1>
+<div class="container">
+
+    <h1> Why Hello There, {{user.fname}}</h1>
 
 
-<div> {{user}} </div>
+    <div> {{user}} </div>
 
-<a href="/add_restaurant"> Add a restaurant! </a>
+    <a href="/add_restaurant_page" > Add a restaurant! </a>
+
+</div>
+
+<ul class="list-group" id="user_restauarants">
+    <div> Restaurants for {{user.user_id}}: </div>
+
+</ul>
 
 
 

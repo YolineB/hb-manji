@@ -36,7 +36,7 @@ class Restaurant(db.Model):
     rest_addy = db.Column(db.String(50), nullable=False)
     rest_city = db.Column(db.String(50), nullable=False)
     rest_zip = db.Column(db.Integer, nullable=False)
-   
+
 
     def __repr__(self):
         """Provide output when printing """
