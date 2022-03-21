@@ -20,7 +20,6 @@ def search_restaurant(term, location='home_zip'):
     response = requests.get(url=url, params=param, headers=headers)
 
     search_results = response.json()
-
     return search_results['businesses']
 
 # print(search_results['total'], search_results['businesses'][0]['name'] )

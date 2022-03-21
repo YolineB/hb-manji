@@ -44,7 +44,7 @@ function restaurantResults(evt) {
 
     //document.querySelector('#restaurants').innerHTML = JSON.stringify(formInputs);
 
-    fetch('/restaurant_search.json', {
+   fetch('/restaurant_search.json', {
         method: 'POST',
         body: JSON.stringify(formInputs),
         headers: {

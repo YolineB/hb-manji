@@ -83,8 +83,7 @@ def home_page():
     #if statement to make sure user name is in session
     if 'user_id' not in session:
         return redirect("/")
-   
-    
+ 
     return render_template('homepage.html')
 
 @app.route('/add_restaurant_page')
@@ -97,18 +96,8 @@ def add_restaurant():
 
     user_id = session['user_id']
 
-    return render_template('add_restaurants.html', user_id=user_id)
+    return render_template('add_restaurant.html', user_id=user_id)
 
-
-@app.route('/restaurant_search.json', methods=["POST"])
-def search_restaurants():
-    """Search for restaurants on Yelp"""
-    term = request.json.get("term")
-    location = request.json.get("city")
-
-    results = yelp_search.search_restaurant(term, location)
-    
-    return jsonify(results)
 
 @app.route('/add_to_restaurant_list/<yelp_id>')
 def add_to_user_list(yelp_id):
@@ -118,7 +107,44 @@ def add_to_user_list(yelp_id):
    #if no, crud funtion to add to user's list
    #session user_id
 
+# @app.route("/add-card", methods=["POST"])
+# def add_card():
+#     """Add a new card to the DB."""
+#     name = request.get_json().get("name")
+#     skill = request.get_json().get("skill")
+
+#     new_card = {
+#         "name": name,
+#         "skill": skill,
+#     }
+
+#     return jsonify({"success": True, "cardAdded": new_card})
+
+
+@app.route('/test_fetch/')
+def search_restaurants():
+    """Search for restaurants on Yelp"""
+    term = request.args.get("term")
+    location = request.args.get("location")
+
+    results = yelp_search.search_restaurant(term, location)
+
+    
+    return jsonify(results)
+
 
 if __name__ == '__main__':
     connect_to_db(app)
     app.run(debug=True, host='0.0.0.0')
+
+# @app.route('/restaurant_search.json', methods=["POST"])
+# def search_restaurants():
+#     """Search for restaurants on Yelp"""
+#     term = request.json.get("term")
+#     location = request.json.get("city")
+
+    
+#     results = yelp_search.search_restaurant(term, location)
+    
+
+#     return jsonify(results)
