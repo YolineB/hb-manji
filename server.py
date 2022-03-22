@@ -26,7 +26,7 @@ def log_in_page():
 
     return render_template('log_in_page.html')
 
-@app.route("/login", methods=["POST"])
+@app.route("/my_manji", methods=["POST"])
 def process_login():
     """Process user login"""
 
@@ -61,9 +61,8 @@ def registration_request():
     home_zip = request.form.get("home_zip")
     password = request.form.get("password")
 
-
     check_email = crud.get_user_by_email(email)
-    
+  
     if check_email:
         flash("Cannot create an account with that email. Try again.")
         return redirect('/register')
@@ -73,9 +72,7 @@ def registration_request():
         db.session.commit()
         flash('You registered! Try logging in')
 
-    
     return redirect('/')
-
 
 @app.route('/homepage')
 def home_page():
@@ -86,11 +83,19 @@ def home_page():
  
     return render_template('homepage.html')
 
+@app.route('/userRestaurants.json')
+def restaurants_favs_of_user():
+    """Return json user restaurant list"""
+
+    user_id = session['user_id']
+
+    user_restaurants = crud.get_favorites_by_user(user_id)
+
+    return jsonify({'favs': user_restaurants})
+
 @app.route('/add_restaurant_page')
 def add_restaurant():
     """ Add a restaurant to user list """
-
-
     if 'user_id' not in session:
         return redirect("/")
 
@@ -98,53 +103,46 @@ def add_restaurant():
 
     return render_template('add_restaurant.html', user_id=user_id)
 
-
-@app.route('/add_to_restaurant_list/<yelp_id>')
-def add_to_user_list(yelp_id):
-    """Add to user's list if not already there"""
-
-   #-check if in users list
-   #if no, crud funtion to add to user's list
-   #session user_id
-
-# @app.route("/add-card", methods=["POST"])
-# def add_card():
-#     """Add a new card to the DB."""
-#     name = request.get_json().get("name")
-#     skill = request.get_json().get("skill")
-
-#     new_card = {
-#         "name": name,
-#         "skill": skill,
-#     }
-
-#     return jsonify({"success": True, "cardAdded": new_card})
-
-
-@app.route('/test_fetch/')
+@app.route('/api_rest_search')
 def search_restaurants():
     """Search for restaurants on Yelp"""
     term = request.args.get("term")
     location = request.args.get("location")
+    user_id = session['user_id']
+  
+    yelp_results = yelp_search.search_restaurant(term, location)
+    # return a list of favs as well to disable button on search
+    yelp_favs = crud.get_yelp_ids_by_user(user_id)
+    results = {'yelp_results': yelp_results, 'yelp_favs': yelp_favs}
 
-    results = yelp_search.search_restaurant(term, location)
-
-    
     return jsonify(results)
+
+@app.route('/add_to_restaurant_list', methods=["POST"])
+def add_to_user_list():
+    """Add to user's list if not already there"""
+    yelp_id = request.json.get("yelpId")
+    chosen_rest_obj = request.json.get("chosenRestObj")
+
+    user_id = session['user_id']
+    #checks if user has rest in their favorites
+    yelp_list = crud.get_yelp_ids_by_user(user_id)
+
+    if (yelp_id in yelp_list):
+        return 'notNew'
+
+    #check if rest in db, then creates rest 
+    if not crud.get_restaurant_by_yelp_id(yelp_id):
+        rest = crud.create_new_rest(chosen_rest_obj) 
+        db.session.add(rest)
+        db.session.commit()
+    
+    fav =  crud.create_new_fav(user_id, yelp_id)
+    db.session.add(fav)
+    db.session.commit()
+
+    return 'newFav'
 
 
 if __name__ == '__main__':
     connect_to_db(app)
     app.run(debug=True, host='0.0.0.0')
-
-# @app.route('/restaurant_search.json', methods=["POST"])
-# def search_restaurants():
-#     """Search for restaurants on Yelp"""
-#     term = request.json.get("term")
-#     location = request.json.get("city")
-
-    
-#     results = yelp_search.search_restaurant(term, location)
-    
-
-#     return jsonify(results)

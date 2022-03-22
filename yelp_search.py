@@ -1,10 +1,9 @@
-
+"""Function to connect to Yelp Fusion API"""
 import json
 from pprint import pprint
 import os
 import requests
 
-# IMPORT USER SESSION HOME ZIP FOR AUTO ZIP FILL UNLESS FILLED OUT ??
 
 url = 'https://api.yelp.com/v3/businesses/search'
 
@@ -23,7 +22,3 @@ def search_restaurant(term, location='home_zip'):
     return search_results['businesses']
 
 # print(search_results['total'], search_results['businesses'][0]['name'] )
-
-
-
-

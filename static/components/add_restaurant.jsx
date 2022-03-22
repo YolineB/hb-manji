@@ -1,20 +1,54 @@
 'use strict';
 
-function restChoice(restObj) {
+function addToUserList(chosenRest){
+
+    let yelpId = chosenRest['id'];
+
+    const formInputs = {
+        'yelpId' : yelpId, 
+        'chosenRestObj' : chosenRest
+    }
+
+    fetch('/add_to_restaurant_list', {
+        method: 'POST',
+        body: JSON.stringify(formInputs),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+    .then(response => response.text())
+    .then(answer => {
+        if (answer === "newFav") {
+            alert(`You have added ${chosenRest['name']} to your list!`)
+        } else {
+            alert(`${chosenRest['name']} has already been added to your list!`)
+        }
+    });
+}
+//makes list of restaurant choices, checks if rest already in favs and disables button
+function restChoice(idx,restObj, favArr) {
     
-    let answer = <li>
-    <div className="restaurant-body">
-        <h5 className="restaurant-title">${restObj['name']}</h5>
-        <div className="restaurant addy"> ${restObj['location']['display_address']} </div>
-        <button value="${restObj}" onclick="addToUserList(this)" className="btn btn-primary">Add to my list</button> 
-    </div>
-    </li>;
+    if (favArr.includes(restObj['id'])) {
+        return (
+            <span key={idx} className="restaurant-body">
+                <h5 className="restaurant-title">{restObj['name']}</h5>
+                <div className="restaurant addy"> {restObj['location']['display_address']} </div>
+                <button onClick={() => addToUserList(restObj)} className="btn btn-primary" disabled>Already in your list!</button> 
+            </span>);
+    } else {
+        return (
+        <span key={idx} className="restaurant-body">
+            <h5 className="restaurant-title">{restObj['name']}</h5>
+            <div className="restaurant addy"> {restObj['location']['display_address']} </div>
+            <button onClick={() => addToUserList(restObj)} className="btn btn-primary">Add to my list</button> 
+        </span>);
+    }
     
-    return answer
+    //return answer
 }
 
-
-function SubmitSearch(prop){
+//enter a favs list in 
+function SubmitSearch(props){
 
     const [term, setTerm] = React.useState('');
     const [location, setCity] = React.useState('');
@@ -22,18 +56,18 @@ function SubmitSearch(prop){
 
     function submitSearch(){
         const queryString = new URLSearchParams({'term': term, 'location': location}).toString();
-        const url = `/test_fetch?${queryString}`;
+        const url = `/api_rest_search?${queryString}`;
 
         fetch(url)
         .then((response) => response.json())
         .then((data) => {
             let result = [];
-            for (let rest of data){
-                result.push(restChoice(rest));
+            console.log(data['yelp_favs'])
+            for (let [i, rest] of Object.entries(data['yelp_results'])){
+                result.push(restChoice(i, rest, data['yelp_favs']));
             };
-            prop.addResults(result);
+            props.addResults(result);
         });
-        
     }
 
    return (
@@ -63,13 +97,9 @@ function AddRestaurantContainer() {
 
     const [searchResults, setSearchResults] = React.useState([]);
 
-    function addResults(results) {
-        setSearchResults(results);
-    }
-
     return (
         <React.Fragment>
-            <SubmitSearch  addResults={addResults}/>
+            <SubmitSearch  addResults={setSearchResults}/>
             < h2>Search Results</h2>
             <div className="grid">{searchResults}</div>
         </React.Fragment>
@@ -79,26 +109,4 @@ function AddRestaurantContainer() {
 
 ReactDOM.render(<AddRestaurantContainer  />, document.getElementById('add_restaurant'));
 
-// Post method not working
-// function submitSearch(){
-//         fetch("/restaurant_search.json", {
-//             method: 'POST',
-//             headers: {
-//             'Content-Type': 'application/json',
-//             body: JSON.stringify({"term": term, "location":location}),
-//             }
-//         })
-//         .then((response) => response.json())
-//         .then((restData) => {
-//             console.log(restData);
-//             prop.addResults(restData);
-//         });
-//     }
 
-// (
-//     <ol>
-//       {reptiles.map(reptile => (
-//         <li key={reptile}>{reptile}</li>
-//       ))}
-//     </ol>
-//   );

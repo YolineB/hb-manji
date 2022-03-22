@@ -13,16 +13,16 @@
 
     <a href="/add_restaurant_page" > Add a restaurant! </a>
 
+    <h2> Restaurants for {{user.fname}}: </h2>
+    <ul class="list-group" id="user_restauarants">
+    </ul>
+
+
 </div>
+{% endblock %}
 
-
-
-<ul class="list-group" id="user_restauarants">
-    <div> Restaurants for {{user.user_id}}: </div>
-
-</ul>
-
-
+{% block js %}
+<script src="/static/components/homepage.jsx" type="text/jsx"></script>
 {% endblock %}
 
 <!-- <div id="mainPage"></div>
