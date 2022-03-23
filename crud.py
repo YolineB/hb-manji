@@ -19,7 +19,7 @@ def get_user_by_email(email):
 def get_user_by_id(user_id):
     """Get user details by ID"""
 
-    return User.query.filter_by(user_id).all()
+    return User.query.filter(User.user_id == user_id).first()
 
 def get_favorites_by_user(user_id):
     """Return restaurants by a user"""
@@ -65,13 +65,10 @@ def create_new_fav(user_id, yelp_id):
 
     return favorite
 
-#new function for restInFavs: return boolean
 def get_restaurant_by_yelp_id(yelp_id):
-    """Returns restaurant obj for if rest in db """
- 
+    """Returns restaurant obj if rest in db """
+
     return Restaurant.query.filter(Restaurant.yelp_id == yelp_id).first()
-
-
 
 if __name__ == '__main__':
     from server import app

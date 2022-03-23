@@ -3,7 +3,7 @@
 {% block title %}Homepage{% endblock %}
 
 {% block body %}
-
+    {% include 'nav_bar.html' %}
 <div class="container">
 
     <h1> Why Hello There, {{user.fname}}</h1>
@@ -14,11 +14,13 @@
     <a href="/add_restaurant_page" > Add a restaurant! </a>
 
     <h2> Restaurants for {{user.fname}}: </h2>
-    <ul class="list-group" id="user_restauarants">
+
+    <ul class="list-group" id="user_restaurants">
     </ul>
 
-
 </div>
+
+
 {% endblock %}
 
 {% block js %}

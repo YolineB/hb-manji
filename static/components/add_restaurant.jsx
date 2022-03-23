@@ -27,27 +27,23 @@ function addToUserList(chosenRest){
 }
 //makes list of restaurant choices, checks if rest already in favs and disables button
 function restChoice(idx,restObj, favArr) {
-    
-    if (favArr.includes(restObj['id'])) {
-        return (
-            <span key={idx} className="restaurant-body">
-                <h5 className="restaurant-title">{restObj['name']}</h5>
-                <div className="restaurant addy"> {restObj['location']['display_address']} </div>
-                <button onClick={() => addToUserList(restObj)} className="btn btn-primary" disabled>Already in your list!</button> 
-            </span>);
+    let isFav = favArr.includes(restObj['id']);
+    let msg;
+    if (isFav) {
+        msg = 'Already in your list!!'
     } else {
-        return (
+        msg = 'Add to my list'
+    }
+
+    return (
         <span key={idx} className="restaurant-body">
             <h5 className="restaurant-title">{restObj['name']}</h5>
             <div className="restaurant addy"> {restObj['location']['display_address']} </div>
-            <button onClick={() => addToUserList(restObj)} className="btn btn-primary">Add to my list</button> 
+            <button onClick={() => addToUserList(restObj)} className="btn btn-primary" disabled={isFav}>{msg}</button> 
         </span>);
-    }
-    
-    //return answer
+
 }
 
-//enter a favs list in 
 function SubmitSearch(props){
 
     const [term, setTerm] = React.useState('');
@@ -74,7 +70,7 @@ function SubmitSearch(props){
        <React.Fragment>
            <div className="container col" >
                 <h2>Add Restaurant</h2>
-                <form>
+                <div>
                     <div className='row'>
                         <label htmlFor="search-keyword">Search Name of Restaurant</label>
                         <input id="search-keyword" onChange={(event) => setTerm(event.target.value)}
@@ -86,12 +82,11 @@ function SubmitSearch(props){
                         type="text" name="search-city"></input>
                     </div>
                     <button type='button' onClick={submitSearch}>Search Restaurants </button>
-                </form>
+                </div>
             </div>
        </React.Fragment>
    )
 }
-
 
 function AddRestaurantContainer() {
 
@@ -105,7 +100,6 @@ function AddRestaurantContainer() {
         </React.Fragment>
     )
 }
-
 
 ReactDOM.render(<AddRestaurantContainer  />, document.getElementById('add_restaurant'));
 

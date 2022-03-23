@@ -1,51 +1,43 @@
 'use strict';
-function UserRestaurants(props) {
+function RestaurantRow(props) {
     
     return (
         <tr> 
-            <th scope="row"></th>
-            <td>Thornton</td>
-            <td>{props.rest_name}</td>
+            <th scope="row"> {props.restaurant.id} </th>
+            <td>{props.restaurant.name}</td>
         </tr>
     );
 }
 
-
 function HomepageContainer() {
 
-    const [userArr, setuserArr] = React.useState([]);
+    const [userArr, setUserArr] = React.useState([]);
 
     React.useEffect(() => {
-        fetch("/userRestaurants.json")
+        fetch("/userRestaurants")
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
-            setuserArr(data.favs)});
+            setUserArr(data)});
     }, []);
-
-    let favRestaurants = []
-
-    for (let userFav in userArr) {
-        let userBlock = UserRestaurants(userFav);
-        favRestaurants.push(userBlock);
-    }
 
 
     return (
         <React.Fragment>
             <h2>So Yum</h2>
-            <table className="table table-dark table striped">{userRests}
+            <table className="table table-dark table striped">
                 <thead>
                     <tr>
                     <th scope="col">#</th>
                     <th scope="col">Restaurant Name</th>
                     </tr>
                 </thead>
-                <tbody> {favRestaurants} </tbody>
+                <tbody> 
+                    {userArr.map(restaurant => <RestaurantRow key={restaurant.id} restaurant={restaurant}/>)}
+                </tbody>
             </table>
         </React.Fragment>
     )
 }
 
-ReactDOM.render(<HomepageContainer  />, document.getElementById('user_restaurants'));
+ReactDOM.render(<HomepageContainer />, document.getElementById('user_restaurants'));
 

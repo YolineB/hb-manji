@@ -26,7 +26,19 @@ def log_in_page():
 
     return render_template('log_in_page.html')
 
-@app.route("/my_manji", methods=["POST"])
+@app.route('/my_manji')
+def home_page():
+    """User main page """
+    #if statement to make sure user name is in session
+    if 'user_id' not in session:
+        return redirect("/")
+    else:
+        user_id = session['user_id']
+        user = crud.get_user_by_id(user_id)
+
+        return render_template('homepage.html', user=user)
+
+@app.route("/login", methods=["POST"])
 def process_login():
     """Process user login"""
 
@@ -41,9 +53,15 @@ def process_login():
     else:
         # log in and store user's email in session
         session["user_id"] = user.user_id
-            
         #pass user to template
-        return render_template('homepage.html', user=user)
+        return redirect('/my_manji')
+
+@app.route("/logout")
+def process_logout():
+    """Log user out"""
+    session.pop('user_id')
+
+    return redirect("/")
 
 @app.route('/register')
 def registration_form():
@@ -62,7 +80,7 @@ def registration_request():
     password = request.form.get("password")
 
     check_email = crud.get_user_by_email(email)
-  
+
     if check_email:
         flash("Cannot create an account with that email. Try again.")
         return redirect('/register')
@@ -74,16 +92,7 @@ def registration_request():
 
     return redirect('/')
 
-@app.route('/homepage')
-def home_page():
-    """User main page """
-    #if statement to make sure user name is in session
-    if 'user_id' not in session:
-        return redirect("/")
- 
-    return render_template('homepage.html')
-
-@app.route('/userRestaurants.json')
+@app.route('/userRestaurants')
 def restaurants_favs_of_user():
     """Return json user restaurant list"""
 
@@ -91,7 +100,12 @@ def restaurants_favs_of_user():
 
     user_restaurants = crud.get_favorites_by_user(user_id)
 
-    return jsonify({'favs': user_restaurants})
+    favs = []
+
+    for user_rest in user_restaurants:
+        favs.append({'id': user_rest.yelp_id, 'name': user_rest.restaurant.rest_name})
+ 
+    return jsonify(favs)
 
 @app.route('/add_restaurant_page')
 def add_restaurant():
@@ -109,7 +123,7 @@ def search_restaurants():
     term = request.args.get("term")
     location = request.args.get("location")
     user_id = session['user_id']
-  
+
     yelp_results = yelp_search.search_restaurant(term, location)
     # return a list of favs as well to disable button on search
     yelp_favs = crud.get_yelp_ids_by_user(user_id)
@@ -132,16 +146,15 @@ def add_to_user_list():
 
     #check if rest in db, then creates rest 
     if not crud.get_restaurant_by_yelp_id(yelp_id):
-        rest = crud.create_new_rest(chosen_rest_obj) 
+        rest = crud.create_new_rest(chosen_rest_obj)
         db.session.add(rest)
         db.session.commit()
-    
+
     fav =  crud.create_new_fav(user_id, yelp_id)
     db.session.add(fav)
     db.session.commit()
 
     return 'newFav'
-
 
 if __name__ == '__main__':
     connect_to_db(app)
