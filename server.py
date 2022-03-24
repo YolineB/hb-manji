@@ -103,7 +103,7 @@ def restaurants_favs_of_user():
     favs = []
 
     for user_rest in user_restaurants:
-        favs.append({'id': user_rest.yelp_id, 'name': user_rest.restaurant.rest_name})
+        favs.append({'id': user_rest.rest_id, 'name': user_rest.restaurant.rest_name})
  
     return jsonify(favs)
 
@@ -126,31 +126,31 @@ def search_restaurants():
 
     yelp_results = yelp_search.search_restaurant(term, location)
     # return a list of favs as well to disable button on search
-    yelp_favs = crud.get_yelp_ids_by_user(user_id)
-    results = {'yelp_results': yelp_results, 'yelp_favs': yelp_favs}
+    rest_favs = crud.get_rest_ids_by_user(user_id)
+    results = {'yelp_results': yelp_results, 'rest_favs': rest_favs}
 
     return jsonify(results)
 
 @app.route('/add_to_restaurant_list', methods=["POST"])
 def add_to_user_list():
     """Add to user's list if not already there"""
-    yelp_id = request.json.get("yelpId")
+    rest_id = request.json.get("restId")
     chosen_rest_obj = request.json.get("chosenRestObj")
 
     user_id = session['user_id']
     #checks if user has rest in their favorites
-    yelp_list = crud.get_yelp_ids_by_user(user_id)
+    rest_list = crud.get_rest_ids_by_user(user_id)
 
-    if (yelp_id in yelp_list):
+    if (rest_id in rest_list):
         return 'notNew'
 
     #check if rest in db, then creates rest 
-    if not crud.get_restaurant_by_yelp_id(yelp_id):
+    if not crud.get_restaurant_by_rest_id(rest_id):
         rest = crud.create_new_rest(chosen_rest_obj)
         db.session.add(rest)
         db.session.commit()
 
-    fav =  crud.create_new_fav(user_id, yelp_id)
+    fav =  crud.create_new_fav(user_id, rest_id)
     db.session.add(fav)
     db.session.commit()
 

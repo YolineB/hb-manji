@@ -11,7 +11,7 @@ Styling - HTML/CSS, Bootstrap 5.0
 APIs:
 Yelp Fusion API
 
-Ensure you have the PYTHON 3.8.10
+Ensure you have PYTHON 3.8.10
 
 clone respository
 git clone https://github.com/YolineB/hb-manji
@@ -25,7 +25,7 @@ Install dependencies:
 pip3 install -r requirements.txt
 
 API:
-Sign up for YELP API(https://fusion.yelp.com/) to get an API key. Save API key in secrets.sh file w/ no spaces before and after the equal sign. 
+Sign up for YELP API(https://fusion.yelp.com/) to get an API key. Save API key in a secrets.sh file w/ no spaces before and after the equal sign. 
 	eg: export YELP_KEY=”your_yelp_key_here”
 https://fusion.yelp.com/
 

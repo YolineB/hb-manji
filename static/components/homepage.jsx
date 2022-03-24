@@ -27,7 +27,7 @@ function HomepageContainer() {
             <table className="table table-dark table striped">
                 <thead>
                     <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">Restaurant_ID</th>
                     <th scope="col">Restaurant Name</th>
                     </tr>
                 </thead>

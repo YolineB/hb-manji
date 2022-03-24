@@ -53,7 +53,6 @@ function restaurantResults(evt) {
         })
         .then(response => response.json())
         .then(jsonResponse => {
-            console.log(jsonResponse);
             for (const res_obj of jsonResponse){
                 let restChoice = returnResultCard(res_obj);
                 document.querySelector('#restaurants').insertAdjacentHTML('beforeend', restChoice);

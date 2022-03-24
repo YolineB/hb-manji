@@ -5,7 +5,7 @@ function addToUserList(chosenRest){
     let yelpId = chosenRest['id'];
 
     const formInputs = {
-        'yelpId' : yelpId, 
+        'restId' : yelpId, 
         'chosenRestObj' : chosenRest
     }
 
@@ -58,9 +58,8 @@ function SubmitSearch(props){
         .then((response) => response.json())
         .then((data) => {
             let result = [];
-            console.log(data['yelp_favs'])
             for (let [i, rest] of Object.entries(data['yelp_results'])){
-                result.push(restChoice(i, rest, data['yelp_favs']));
+                result.push(restChoice(i, rest, data['rest_favs']));
             };
             props.addResults(result);
         });
