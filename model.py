@@ -31,7 +31,9 @@ class User(db.Model):
         return f"<User user_id= {self.user_id} name={self.fname}>"
 
     #favs = a list of Fav Objects
-    following = db.relationship(
+
+    #following will link users, and then user1.my_friends.append(user_2) establish connection
+    my_friends = db.relationship(
         "User",
         secondary=friend,
         primaryjoin=user_id == friend.c.f1_id,
@@ -45,7 +47,7 @@ class Restaurant(db.Model):
 
     __tablename__= "restaurants"
 
-    #note that rest_id is the same as yelp id
+    #note that rest_id is the same as yelp id from yelp API
 
     rest_id = db.Column(db.String(50), nullable=False, primary_key=True)
     rest_name = db.Column(db.String(50), nullable=False)
@@ -84,10 +86,10 @@ class Favorite(db.Model):
 
 
 def connect_to_db(app, db_URI="postgresql:///manji_data"):
-    """Connect to database """
+    """Connect to database Call connect_to_db(app, echo=False) to not sett each SQLAlchemy execution"""
 
     app.config["SQLALCHEMY_DATABASE_URI"] = db_URI
-    app.config["SQLALCHEMY_ECHO"] = True
+    app.config["SQLALCHEMY_ECHO"] = True #output the raw SQL executed by SQLAlchemy to assist debugging
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.app = app

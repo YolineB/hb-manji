@@ -38,11 +38,10 @@ def get_rest_ids_by_user(user_id):
     for item in user_rests:
         rest_ids_list.append(item.rest_id)
 
-
     return rest_ids_list
 
 def create_new_rest(rest_dict):
-    """ Create and return a new restaurant. If already there, returns REST obj """
+    """ Create and return a new restaurant. """
 
     rest_id = rest_dict['id']
     rest_name = rest_dict['name']
@@ -69,6 +68,32 @@ def get_restaurant_by_rest_id(rest_id):
     """Returns restaurant obj if rest in db """
 
     return Restaurant.query.filter(Restaurant.rest_id == rest_id).first()
+
+def get_friends_list_by_user(user_id):
+    """Return list of  """
+
+    user = User.query.filter(User.user_id == user_id).first()
+
+    friends_list = user.my_friends
+
+    return friends_list
+
+def add_a_friend(main_id, friend_id):
+    """Add a new friend to user's list, return updated friends's list """
+    main_user = User.query.filter(User.user_id == main_id).first()
+    print('\n'*5)
+    print(main_user)
+    
+    new_friend = User.query.filter(User.user_id == friend_id).first()
+    print(new_friend)
+    print('\n'*5)
+    if new_friend not in main_user.my_friends:
+        main_user.my_friends.insert(0, new_friend)
+        return main_user
+    else:
+        return None
+
+
 
 if __name__ == '__main__':
     from server import app

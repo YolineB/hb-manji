@@ -1,6 +1,6 @@
 'use strict';
 
-function addToUserList(chosenRest){
+function addToUserList(btn,chosenRest){
 
     let yelpId = chosenRest['id'];
 
@@ -19,7 +19,8 @@ function addToUserList(chosenRest){
     .then(response => response.text())
     .then(answer => {
         if (answer === "newFav") {
-            alert(`You have added ${chosenRest['name']} to your list!`)
+            btn.innerHTML = 'Added!!';
+            btn.disabled = true;
         } else {
             alert(`${chosenRest['name']} has already been added to your list!`)
         }
@@ -32,14 +33,14 @@ function restChoice(idx,restObj, favArr) {
     if (isFav) {
         msg = 'Already in your list!!'
     } else {
-        msg = 'Add to my list'
+        msg = 'Add to favorites'
     }
 
     return (
         <span key={idx} className="restaurant-body">
             <h5 className="restaurant-title">{restObj['name']}</h5>
             <div className="restaurant addy"> {restObj['location']['display_address']} </div>
-            <button onClick={() => addToUserList(restObj)} className="btn btn-primary" disabled={isFav}>{msg}</button> 
+            <button onClick={(evt) => addToUserList(evt.target,restObj)} className="btn btn-primary" disabled={isFav}>{msg}</button> 
         </span>);
 
 }

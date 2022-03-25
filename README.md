@@ -29,6 +29,8 @@ Sign up for YELP API(https://fusion.yelp.com/) to get an API key. Save API key i
 	eg: export YELP_KEY=”your_yelp_key_here”
 https://fusion.yelp.com/
 
+
+
 execute secrets.sh into shell environment to load YELP_KEY variable
 	→ source secrets.sh
 

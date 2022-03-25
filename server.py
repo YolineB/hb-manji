@@ -92,11 +92,11 @@ def registration_request():
 
     return redirect('/')
 
-@app.route('/userRestaurants')
-def restaurants_favs_of_user():
+@app.route('/userRestaurants/<int:user_id>')
+def restaurants_favs_of_user(user_id):
     """Return json user restaurant list"""
 
-    user_id = session['user_id']
+    # user_id = session['user_id']
 
     user_restaurants = crud.get_favorites_by_user(user_id)
 
@@ -104,7 +104,7 @@ def restaurants_favs_of_user():
 
     for user_rest in user_restaurants:
         favs.append({'id': user_rest.rest_id, 'name': user_rest.restaurant.rest_name})
- 
+
     return jsonify(favs)
 
 @app.route('/add_restaurant_page')
@@ -155,6 +155,61 @@ def add_to_user_list():
     db.session.commit()
 
     return 'newFav'
+
+@app.route('/show_users_friends')
+def get_user_friends_list():
+    """Retrieve list of user's friends"""
+    user = session['user_id']
+    user_friends = crud.get_friends_list_by_user(user_id=user)
+
+    friends = []
+
+    for friend in user_friends:
+        friends.append({'id': friend.user_id, 'name': friend.fname})
+
+    return jsonify(friends)
+
+@app.route('/add_friend_to_list/<friend_id>')
+def make_a_friendship(friend_id):
+    """Create a frienship between user """
+    user = session['user_id']
+    
+    user_friend_updated = crud.add_a_friend(main_id=user, friend_id=friend_id)
+
+    if user_friend_updated is not None:
+        db.session.add(user_friend_updated)
+        db.session.commit()
+        flash('You have added your friend!')
+    else:
+        flash('Already homies')
+    #updated_user_friend_list = user_friend_updated.my_friends
+    
+    return redirect(f'/my_manji/{friend_id}')
+
+    #return updated_user_friend_list
+
+@app.route('/my_manji/<int:user_id>')
+def profile_page(user_id):
+    """user profile """
+    if 'user_id' not in session:
+        flash('Must have an account')
+        return redirect("/")
+    
+    user_info = crud.get_user_by_id(user_id)
+
+    name = user_info.fname + " " + user_info.lname
+    fav_obj = crud.get_favorites_by_user(user_id)
+
+    fav_list = []
+    for fav in fav_obj:
+        fav_list.append(fav.restaurant.rest_name)
+
+    #get user from db and render profile template w/ restaurants and follow button
+
+    return render_template('/profile.html', user_id=user_id, fav_list=fav_list, name=name)
+
+# @app.route('/public_page/<user_id>')
+
 
 if __name__ == '__main__':
     connect_to_db(app)

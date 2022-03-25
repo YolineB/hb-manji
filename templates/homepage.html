@@ -8,8 +8,15 @@
 
     <h1> Why Hello There, {{user.fname}}</h1>
 
+    <input type="hidden" id="user_id" value="{{user.user_id}}"/> 
+  
 
-    <div> {{user}} </div>
+    <div id="friend_connect_link">
+        <div className='row'></div>
+        
+        <a class="btn btn-success btn-lg" href="/my_manji/{{user.user_id}}">Profile</a>
+ 
+    </div>
 
     <a href="/add_restaurant_page" > Add a restaurant! </a>
 
@@ -17,18 +24,16 @@
 
     <ul class="list-group" id="user_restaurants">
     </ul>
+    <h2>{{user.fname}}'s friends</h2>
 
+    <div id="friends"> </div>
+    
 </div>
 
 
 {% endblock %}
 
 {% block js %}
-<script src="/static/components/homepage.jsx" type="text/jsx"></script>
+<script src="/static/components/user_restaurants.jsx" type="text/jsx"></script>
+<script src="/static/components/friends.jsx" type="text/jsx"></script>
 {% endblock %}
-
-<!-- <div id="mainPage"></div>
-<div id="root"></div>
-
-<script src="/static/js/homepage.jsx" type="text/jsx"></script>
-<script src="/static/components/add_restaurant.jsx" type="text/jsx"></script> -->

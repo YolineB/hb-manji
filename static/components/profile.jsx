@@ -9,8 +9,7 @@ function RestaurantRow(props) {
     );
 }
 
-function HomepageContainer() {
-
+function ProfilePageContainer(){
     const [userArr, setUserArr] = React.useState([]);
 
     React.useEffect(() => {
@@ -39,5 +38,21 @@ function HomepageContainer() {
     )
 }
 
-ReactDOM.render(<HomepageContainer />, document.getElementById('user_restaurants'));
 
+ReactDOM.render(<ProfilePageContainer />, document.getElementById('profile'));
+
+/* <ReactRouterDOM.BrowserRouter>
+      <div className="container-fluid">
+        <ReactRouterDOM.Route exact path="/">
+          <Homepage />
+        </ReactRouterDOM.Route>
+        
+        <ReactRouterDOM.Route exact path="/shop">
+          <AllMelonsPage melons={melons} />
+        </ReactRouterDOM.Route>
+
+        <ReactRouterDOM.Route exact path="/cart">
+          <ShoppingCartPage />
+        </ReactRouterDOM.Route>
+      </div>
+</ReactRouterDOM.BrowserRouter> */
