@@ -26,6 +26,8 @@ function addToUserList(btn,chosenRest){
         }
     });
 }
+
+
 //makes list of restaurant choices, checks if rest already in favs and disables button
 function restChoice(idx,restObj, favArr) {
     let isFav = favArr.includes(restObj['id']);
@@ -87,7 +89,7 @@ function SubmitSearch(props){
        </React.Fragment>
    )
 }
-
+//change to RestChoice to help make it a generator that will make a card with each button choice
 function AddRestaurantContainer() {
 
     const [searchResults, setSearchResults] = React.useState([]);

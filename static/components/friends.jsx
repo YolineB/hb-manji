@@ -14,13 +14,12 @@ function FriendRow(props){
 function UserFriendsContainer(){
 
     const [friendArr, setFriendArr] = React.useState([]);
-    console.log(friendArr);
+    
     React.useEffect( () => {
         fetch("/show_users_friends")
             .then((response => response.json()))
             .then((data) => {setFriendArr(data)})
     } ,[]);
-
 
     {friendArr.map((friend) => {<li>{friend.id}</li>})}
 

@@ -4,26 +4,46 @@
 
 {% block body %}
     {% include 'nav_bar.html' %}
-    <h4> {{name}}'s profile</h4>
-    <div>
-        {%if user_id != session['user_id'] %}
-            </div>
-            in_ses: {{session.user_id}}, friend: {{user_id}}
-            <a class="btn btn-success btn-lg" href="/add_friend_to_list/{{user_id}}">Add friend</a>
-            </div>
-        {%endif%}
-    </div>
-    <ul>
-    {% for rest in fav_list %}
-    <li>{{ rest }}</li>
-    {% endfor %}
-    </ul>
 
-    <div id="user restaurants" class = "container col"></div>
+    <h4 class="display-1"> {{name}}'s profile</h4>
+
+    {%if 'user_id' not in session %}
+
+        <div>
+            <div class="alert alert-info" role="alert">
+                You are seeing a limited view. <a href="/" class="alert-link">Sign-in/Register</a> to access full features.
+            </div>
+
+            <ul>
+                {% for rest in fav_list %}
+                <li>{{ rest }}</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+        {% else %}
+        <input type="hidden" id="user_id" value="{{user_id}}"/>
+        <div class="container">
+            {%if user_id != session['user_id'] %}
+                    </div id='connect_friend'>
+                        in_ses: {{session.user_id}}, friend: {{user_id}}
+                        <a class="btn btn-success btn-lg" href="/add_friend_to_list/{{user_id}}">Add friend</a>
+                    </div>
+                    {% else %}
+                    <div id="user_share_link">
+                        Share your friendship link! Then friends can see your favorites
+                        Copy this:
+                        my_manji/{{user_id}}
+                    </div>
+            {%endif%}
+        </div>
+        <div id="user_restaurants" class = "container"> </div>
+    {%endif%}
+    
 {% endblock %}
 
-<!-- {% block js %}
-<script src="/static/components/profile.jsx" type="text/jsx"></script>
+{% block js %}
 
+<script src="/static/components/user_restaurants.jsx" type="text/jsx"></script>
 
-{% endblock %} -->
+{% endblock %}

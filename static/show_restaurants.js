@@ -63,3 +63,35 @@ function restaurantResults(evt) {
 
 
 document.querySelector('form').addEventListener('submit', restaurantResults);
+
+.button {
+    box-sizing: border-box;
+    background-color: transparent;
+    border: 2px solid $blue;
+    border-radius: 0.6em;
+    cursor: pointer;
+    font-weight: 400;
+    line-height: 1;
+    margin: 0.5rem;
+  
+    padding: 1em 2.8em;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #fff;
+  
+    box-shadow: 0 0 10px 0 $blue inset, 0 0 10px 4px $blue;
+    &:hover,
+    &:focus {
+      color: #fff;
+      outline: 0;
+    }
+  
+    &:hover {
+      border-color: $blue;
+      color: #fff;
+      box-shadow: 0 0 40px 40px $blue inset, 0 0 0 0 $blue;
+      transition: all 150ms ease-in-out;
+    }
+  }
+  

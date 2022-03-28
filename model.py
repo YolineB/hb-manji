@@ -89,7 +89,7 @@ def connect_to_db(app, db_URI="postgresql:///manji_data"):
     """Connect to database Call connect_to_db(app, echo=False) to not sett each SQLAlchemy execution"""
 
     app.config["SQLALCHEMY_DATABASE_URI"] = db_URI
-    app.config["SQLALCHEMY_ECHO"] = True #output the raw SQL executed by SQLAlchemy to assist debugging
+    app.config["SQLALCHEMY_ECHO"] = False #output the raw SQL executed by SQLAlchemy to assist debugging
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.app = app

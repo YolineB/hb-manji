@@ -28,6 +28,7 @@ def get_favorites_by_user(user_id):
 
     return user_favs_list
 
+
 def get_rest_ids_by_user(user_id):
     """Return list of rest ids by user"""
 
@@ -39,6 +40,13 @@ def get_rest_ids_by_user(user_id):
         rest_ids_list.append(item.rest_id)
 
     return rest_ids_list
+
+def button_choices(restaurant_id, user_id):
+    """Return bool if restaurant_id in fav list of user in session"""
+
+    fav_rest_ids = get_rest_ids_by_user(user_id)
+
+    return restaurant_id in fav_rest_ids
 
 def create_new_rest(rest_dict):
     """ Create and return a new restaurant. """
@@ -85,8 +93,7 @@ def add_a_friend(main_id, friend_id):
     print(main_user)
     
     new_friend = User.query.filter(User.user_id == friend_id).first()
-    print(new_friend)
-    print('\n'*5)
+
     if new_friend not in main_user.my_friends:
         main_user.my_friends.insert(0, new_friend)
         return main_user
