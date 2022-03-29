@@ -50,7 +50,7 @@ def button_choices(restaurant_id, user_id):
 
 def create_new_rest(rest_dict):
     """ Create and return a new restaurant. """
-
+   
     rest_id = rest_dict['id']
     rest_name = rest_dict['name']
     rest_addy = rest_dict['location']['display_address']
@@ -77,6 +77,18 @@ def get_restaurant_by_rest_id(rest_id):
 
     return Restaurant.query.filter(Restaurant.rest_id == rest_id).first()
 
+
+def add_a_friend(main_id, friend_id):
+    """Add a new friend to user's list, return updated friends's list """
+    main_user = User.query.filter(User.user_id == main_id).first()
+    new_friend = User.query.filter(User.user_id == friend_id).first()
+
+    if new_friend not in main_user.my_friends:
+        main_user.my_friends.insert(0, new_friend)
+        return main_user
+    else:
+        return None
+
 def get_friends_list_by_user(user_id):
     """Return list of  """
 
@@ -86,21 +98,16 @@ def get_friends_list_by_user(user_id):
 
     return friends_list
 
-def add_a_friend(main_id, friend_id):
-    """Add a new friend to user's list, return updated friends's list """
-    main_user = User.query.filter(User.user_id == main_id).first()
-    print('\n'*5)
-    print(main_user)
-    
-    new_friend = User.query.filter(User.user_id == friend_id).first()
+def friends_user_ids(main_user_id):
+    """returns a list of just the ids of main user's friends """
+    friends_objs = get_friends_list_by_user(main_user_id)
 
-    if new_friend not in main_user.my_friends:
-        main_user.my_friends.insert(0, new_friend)
-        return main_user
-    else:
-        return None
+    friends_ids = []
 
+    for friend in friends_objs:
+        friends_ids.append(friend.user_id)
 
+    return friends_ids
 
 if __name__ == '__main__':
     from server import app

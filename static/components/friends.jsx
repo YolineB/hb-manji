@@ -3,10 +3,13 @@
 function FriendRow(props){
 
     let userID = props.friend.id;
+    let userTag = '#' + 'user' + userID
+    let userEleID = 'user' + userID
     return(
         <React.Fragment>
-            <h3>{props.friend.name}</h3>
-            <UserRestaurantsContainer userID={userID}/>
+            <h3><button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target={userTag}
+            aria-expanded="false" aria-controls="collapseExample">{props.friend.name} </button></h3>
+            <div className="collapse" id={userEleID}> <UserRestaurantsContainer userID={userID}/> </div>
         </React.Fragment>
     )
 }
@@ -25,7 +28,7 @@ function UserFriendsContainer(){
 
     return (
         <React.Fragment>
-            <h2>Friends' List</h2>
+            <h2>Friends' List</h2> 
             <ul>{friendArr.map((friend,i) => <FriendRow key={i} friend={friend}/>)}</ul>
         </React.Fragment>
     )

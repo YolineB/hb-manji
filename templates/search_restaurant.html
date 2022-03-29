@@ -8,19 +8,21 @@
 <div class = "container col">
     <h1> Restaurants to add to {{user_id}}'s list</h1>
 
-    <div id="add_restaurant"></div>
+    <div id="search_restaurant"></div>
 
 </div>
 
 {% endblock %}
 
 {% block js %}
-<script src="/static/components/add_restaurant.jsx" type="text/jsx"></script>
+<script src ="/static/add_restaurant_fav.js"></script>
+<script src="/static/components/search_restaurant.jsx" type="text/jsx"></script>
+
 {% endblock %}
 
 <!-- Below is for no react -->
 <!-- <div class="container" name="restaurant_search" >
-    
+    <script src="/static/components/restaurant_search.jsx"></script>
     <div class="col">
         <h2>Search for Restaurants</h2>
         
@@ -52,6 +54,6 @@
 
     </div>
 
-    <script src="/static/show_restaurants.js"></script>
+    
     
 </div> -->

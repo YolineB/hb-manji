@@ -1,33 +1,5 @@
 'use strict';
 
-function addToUserList(btn,chosenRest){
-
-    let yelpId = chosenRest['id'];
-
-    const formInputs = {
-        'restId' : yelpId, 
-        'chosenRestObj' : chosenRest
-    }
-
-    fetch('/add_to_restaurant_list', {
-        method: 'POST',
-        body: JSON.stringify(formInputs),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-    .then(response => response.text())
-    .then(answer => {
-        if (answer === "newFav") {
-            btn.innerHTML = 'Added!!';
-            btn.disabled = true;
-        } else {
-            alert(`${chosenRest['name']} has already been added to your list!`)
-        }
-    });
-}
-
-
 //makes list of restaurant choices, checks if rest already in favs and disables button
 function restChoice(idx,restObj, favArr) {
     let isFav = favArr.includes(restObj['id']);
@@ -38,11 +10,16 @@ function restChoice(idx,restObj, favArr) {
         msg = 'Add to favorites'
     }
 
+    const chosenRest = {
+        'restId' : restObj['id'], 
+        'chosenRestObj' : restObj
+    }
+    
     return (
         <span key={idx} className="restaurant-body">
             <h5 className="restaurant-title">{restObj['name']}</h5>
             <div className="restaurant addy"> {restObj['location']['display_address']} </div>
-            <button onClick={(evt) => addToUserList(evt.target,restObj)} className="btn btn-primary" disabled={isFav}>{msg}</button> 
+            <button onClick={(evt) => addToUserFavList(evt.target,chosenRest)} className="btn btn-primary" disabled={isFav}>{msg}</button> 
         </span>);
 
 }
@@ -90,7 +67,7 @@ function SubmitSearch(props){
    )
 }
 //change to RestChoice to help make it a generator that will make a card with each button choice
-function AddRestaurantContainer() {
+function SearchRestaurantContainer() {
 
     const [searchResults, setSearchResults] = React.useState([]);
 
@@ -103,6 +80,32 @@ function AddRestaurantContainer() {
     )
 }
 
-ReactDOM.render(<AddRestaurantContainer  />, document.getElementById('add_restaurant'));
+ReactDOM.render(<SearchRestaurantContainer  />, document.getElementById('search_restaurant'));
 
 
+// function addToUserList(btn,chosenRest){
+
+//     let yelpId = chosenRest['id'];
+
+//     const formInputs = {
+//         'restId' : yelpId, 
+//         'chosenRestObj' : chosenRest
+//     }
+
+//     fetch('/add_to_restaurant_list', {
+//         method: 'POST',
+//         body: JSON.stringify(formInputs),
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       })
+//     .then(response => response.text())
+//     .then(answer => {
+//         if (answer === "newFav") {
+//             btn.innerHTML = 'Added!!';
+//             btn.disabled = true;
+//         } else {
+//             alert(`${chosenRest['name']} has already been added to your list!`)
+//         }
+//     });
+// }

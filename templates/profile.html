@@ -21,15 +21,18 @@
             </ul>
 
         </div>
-        {% else %}
+    {% else %}
         <input type="hidden" id="user_id" value="{{user_id}}"/>
         <div class="container">
             {%if user_id != session['user_id'] %}
-                    </div id='connect_friend'>
-                        in_ses: {{session.user_id}}, friend: {{user_id}}
-                        <a class="btn btn-success btn-lg" href="/add_friend_to_list/{{user_id}}">Add friend</a>
+                {%if not 'is_friend' %}
+                    <div id='connect_friend'>
+                        <a class="btn btn-success btn-lg" href="/add_friend_to_list/{{user_id}}" >Add friend</a>
                     </div>
-                    {% else %}
+                {% else %}
+                    Already friends!
+                {%endif%}
+            {% else %}
                     <div id="user_share_link">
                         Share your friendship link! Then friends can see your favorites
                         Copy this:
@@ -43,7 +46,7 @@
 {% endblock %}
 
 {% block js %}
-
+<script src ="/static/add_restaurant_fav.js"></script>
 <script src="/static/components/user_restaurants.jsx" type="text/jsx"></script>
 
 {% endblock %}

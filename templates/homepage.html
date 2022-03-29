@@ -18,13 +18,16 @@
  
     </div>
 
-    <a class="btn btn-info btn-lg" href="/add_restaurant_page" > Add a restaurant! </a>
+    <a class="btn btn-info btn-lg" href="/search_restaurant" > Add a restaurant! </a>
+
+    <a class="btn btn-danger btn-sm" id="restaurant_edit" > Edit your restaurant selection </a>
 
     <h2> Restaurants for {{user.fname}}: </h2>
 
     <ul class="list-group" id="user_restaurants">
     </ul>
-    <h2>{{user.fname}}'s friends</h2>
+
+    <div></div>
 
     <div id="friends"> </div>
     
@@ -34,6 +37,7 @@
 {% endblock %}
 
 {% block js %}
+<script src ="/static/add_restaurant_fav.js"></script>
 <script src="/static/components/user_restaurants.jsx" type="text/jsx"></script>
 <script src="/static/components/friends.jsx" type="text/jsx"></script>
 {% endblock %}

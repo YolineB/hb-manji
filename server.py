@@ -22,6 +22,9 @@ from model import connect_to_db, db
 @app.route('/')
 def log_in_page():
     """First page to prompt log-in"""
+   
+    if 'user_id' in session:
+        return redirect('/my_manji')
 
     return render_template('log_in_page.html')
 
@@ -50,9 +53,9 @@ def process_login():
 
         return redirect("/")
     else:
-        # log in and store user's email in session
+        # log in and store user's id in session
         session["user_id"] = user.user_id
-        #pass user to template
+        
         return redirect('/my_manji')
 
 @app.route("/logout")
@@ -99,15 +102,20 @@ def restaurants_favs_of_user(user_id):
 
     favs = []
 
+    can_edit = False
+
+    if user_id == session['user_id']:
+        can_edit = True
+
     for user_rest in user_restaurants:
         rest_info = {'id': user_rest.rest_id, 'name': user_rest.restaurant.rest_name,
-                        'fav': crud.button_choices(user_rest.rest_id, session['user_id'])}
+                        'fav': crud.button_choices(user_rest.rest_id, session['user_id']), 'can_edit': can_edit}
 
         favs.append(rest_info)
-        
+       
     return jsonify(favs)
 
-@app.route('/add_restaurant_page')
+@app.route('/search_restaurant')
 def add_restaurant():
     """ Add a restaurant to user list """
     if 'user_id' not in session:
@@ -115,7 +123,7 @@ def add_restaurant():
 
     user_id = session['user_id']
 
-    return render_template('add_restaurant.html', user_id=user_id)
+    return render_template('search_restaurant.html', user_id=user_id)
 
 @app.route('/api_rest_search')
 def search_restaurants():
@@ -182,11 +190,8 @@ def make_a_friendship(friend_id):
         flash('You have added your friend!')
     else:
         flash('Already homies')
-    #updated_user_friend_list = user_friend_updated.my_friends
     
     return redirect(f'/my_manji/{friend_id}')
-
-    #return updated_user_friend_list
 
 @app.route('/my_profile')
 def my_profile():
@@ -194,14 +199,20 @@ def my_profile():
     user_id = session['user_id']
     return redirect(f'/my_manji/{user_id}')
 
-@app.route('/my_manji/<int:user_id>')
-def profile_page(user_id):
+@app.route('/my_manji/<int:profile_user_id>')
+def profile_page(profile_user_id):
     """user profile """
 
-    user_info = crud.get_user_by_id(user_id)
+    prof_user_info = crud.get_user_by_id(profile_user_id)
 
-    name = user_info.fname + " " + user_info.lname
-    fav_obj = crud.get_favorites_by_user(user_id)
+    name = prof_user_info.fname + " " + prof_user_info.lname
+    fav_obj = crud.get_favorites_by_user(profile_user_id)
+    
+    is_friend = False
+    if 'user_id' in session:
+        the_friends = crud.friends_user_ids(session['user_id'])
+        if profile_user_id in the_friends:
+            is_friend = True
 
     fav_list = []
     for fav in fav_obj:
@@ -209,7 +220,8 @@ def profile_page(user_id):
 
     #get user from db and render profile template w/ restaurants and follow button
 
-    return render_template('/profile.html', user_id=user_id, fav_list=fav_list, name=name)
+    return render_template('/profile.html', user_id=profile_user_id, 
+                            fav_list=fav_list, name=name, is_friend=is_friend)
 
 
 if __name__ == '__main__':

@@ -1,23 +1,6 @@
 'use strict';
-function addToUserList(btn,selectedRest){
 
-    fetch('/add_to_restaurant_list', {
-        method: 'POST',
-        body: JSON.stringify(selectedRest),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-    .then(response => response.text())
-    .then(answer => {
-        if (answer === "newFav") {
-            btn.innerHTML = 'Added!!';
-            btn.disabled = true;
-        } else {
-            alert(`${chosenRest['name']} has already been added to your list!`)
-        }
-    });
-}
+
 function RestaurantRow(props) {
 
     const chosenRest = {
@@ -28,16 +11,18 @@ function RestaurantRow(props) {
 
     let showButton = ""
     if (!props.restaurant.fav) {
-       showButton = <button onClick={(evt) => addToUserList(evt.target,chosenRest)}
-       className="btn btn-primary">Add to your list too!</button>
-    }
+       showButton = <button onClick={(evt) => addToUserFavList(evt.target,chosenRest)}
+       className="btn btn-primary btn-lg">Add to your list too!</button>
+    } 
 
+    
     return (
         <tr> 
-            <th scope="row"> {props.restaurant.id} </th>
+            <th scope="row"> {props.restaurant.id}</th>
             <td>{props.restaurant.name}</td>
-            <td>{showButton}</td>
+            <td>{showButton} </td>
         </tr>
+        
     );
 }
 
@@ -54,8 +39,7 @@ function UserRestaurantsContainer(props) {
 
     return (
         <React.Fragment>
-            <h2>So Yum</h2>
-            <table className="table table-dark table striped">
+            <table className="table table-dark table-striped table-responsive-xxl table-responsive table-sm ">
                 <thead>
                     <tr>
                     <th scope="col">Restaurant_ID</th>
@@ -73,3 +57,22 @@ function UserRestaurantsContainer(props) {
 const userID = document.querySelector('#user_id').value;
 ReactDOM.render(<UserRestaurantsContainer userID={userID}/>, document.getElementById('user_restaurants'));
 
+// function addToUserList(btn,selectedRest){
+
+//     fetch('/add_to_restaurant_list', {
+//         method: 'POST',
+//         body: JSON.stringify(selectedRest),
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       })
+//     .then(response => response.text())
+//     .then(answer => {
+//         if (answer === "newFav") {
+//             btn.innerHTML = 'Added!!';
+//             btn.disabled = true;
+//         } else {
+//             alert(`${selectedRest['name']} has already been added to your list!`)
+//         }
+//     });
+// }
