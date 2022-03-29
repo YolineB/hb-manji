@@ -100,20 +100,20 @@ def restaurants_favs_of_user(user_id):
 
     user_restaurants = crud.get_favorites_by_user(user_id)
 
-    favs = []
-
     can_edit = False
-
     if user_id == session['user_id']:
         can_edit = True
+    
+    favs = []
 
     for user_rest in user_restaurants:
         rest_info = {'id': user_rest.rest_id, 'name': user_rest.restaurant.rest_name,
-                        'fav': crud.button_choices(user_rest.rest_id, session['user_id']), 'can_edit': can_edit}
+                      'fav': crud.button_choices(user_rest.rest_id, session['user_id'])}
 
         favs.append(rest_info)
-       
-    return jsonify(favs)
+
+
+    return jsonify({'can_edit':can_edit, 'favs': favs})
 
 @app.route('/search_restaurant')
 def add_restaurant():
@@ -142,7 +142,7 @@ def search_restaurants():
 @app.route('/add_to_restaurant_list', methods=["POST"])
 def add_to_user_list():
     """Add to user's list if not already there"""
-    rest_id = request.json.get("restId")
+    rest_id = request.json.get("restID")
     chosen_rest_obj = request.json.get("chosenRestObj")
 
     user_id = session['user_id']
@@ -163,6 +163,21 @@ def add_to_user_list():
     db.session.commit()
 
     return 'newFav'
+
+@app.route('/delete_from_fav_list', methods=["POST"])
+def delete_fav_rest():
+    """Remove a fav from user's list"""
+    rest_id = request.json.get("restID")
+
+    fav_id_delete = crud.get_fav_by_user_and_rest(session['user_id'], rest_id)
+    print('\n'*5)
+    print(fav_id_delete)
+    print('\n'*5)
+
+    db.session.delete(fav_id_delete)
+    db.session.commit()
+
+    return 'removed'
 
 @app.route('/show_users_friends')
 def get_user_friends_list():
@@ -207,10 +222,11 @@ def profile_page(profile_user_id):
 
     name = prof_user_info.fname + " " + prof_user_info.lname
     fav_obj = crud.get_favorites_by_user(profile_user_id)
-    
+  
     is_friend = False
     if 'user_id' in session:
         the_friends = crud.friends_user_ids(session['user_id'])
+
         if profile_user_id in the_friends:
             is_friend = True
 
@@ -220,7 +236,7 @@ def profile_page(profile_user_id):
 
     #get user from db and render profile template w/ restaurants and follow button
 
-    return render_template('/profile.html', user_id=profile_user_id, 
+    return render_template('/profile.html', user_id=profile_user_id,
                             fav_list=fav_list, name=name, is_friend=is_friend)
 
 

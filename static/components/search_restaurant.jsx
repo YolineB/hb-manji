@@ -11,7 +11,7 @@ function restChoice(idx,restObj, favArr) {
     }
 
     const chosenRest = {
-        'restId' : restObj['id'], 
+        'restID' : restObj['id'], 
         'chosenRestObj' : restObj
     }
     

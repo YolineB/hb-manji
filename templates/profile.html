@@ -7,6 +7,7 @@
 
     <h4 class="display-1"> {{name}}'s profile</h4>
 
+
     {%if 'user_id' not in session %}
 
         <div>
@@ -25,12 +26,12 @@
         <input type="hidden" id="user_id" value="{{user_id}}"/>
         <div class="container">
             {%if user_id != session['user_id'] %}
-                {%if not 'is_friend' %}
+                {%if is_friend %}
+                    Already friends!
+                {% else %}
                     <div id='connect_friend'>
                         <a class="btn btn-success btn-lg" href="/add_friend_to_list/{{user_id}}" >Add friend</a>
                     </div>
-                {% else %}
-                    Already friends!
                 {%endif%}
             {% else %}
                     <div id="user_share_link">
@@ -46,7 +47,7 @@
 {% endblock %}
 
 {% block js %}
-<script src ="/static/add_restaurant_fav.js"></script>
+<script src ="/static/edit_restaurant_fav.js"></script>
 <script src="/static/components/user_restaurants.jsx" type="text/jsx"></script>
 
 {% endblock %}

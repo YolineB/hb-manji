@@ -22,6 +22,22 @@ function addToUserFavList(btn,selectedRest){
 
 function deleteFromFavList(btn,selectedRest){
 
-    fetch('/delete_fav')
-        
+    
+    fetch('/delete_from_fav_list', {
+        method: 'POST',
+        body: JSON.stringify(selectedRest),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+    .then(response => response.text())
+    .then(answer => {
+        if (answer === "removed") {
+            btn.innerHTML = 'removed';
+            btn.disabled = true;
+        } else {
+            alert('Error from deleteFromFav js function')
+        }
+    });
 }
+

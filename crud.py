@@ -109,6 +109,13 @@ def friends_user_ids(main_user_id):
 
     return friends_ids
 
+def get_fav_by_user_and_rest(user_id, rest_id):
+    """return favorite obj of user & rest_id"""
+
+    fav_to_delete = Favorite.query.filter(Favorite.user_id == user_id, Favorite.rest_id == rest_id).first()
+
+    return fav_to_delete
+
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)
