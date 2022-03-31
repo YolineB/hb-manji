@@ -22,7 +22,6 @@ function addToUserFavList(btn,selectedRest){
 
 function deleteFromFavList(btn,selectedRest){
 
-    
     fetch('/delete_from_fav_list', {
         method: 'POST',
         body: JSON.stringify(selectedRest),

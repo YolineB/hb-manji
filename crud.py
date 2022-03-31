@@ -116,6 +116,13 @@ def get_fav_by_user_and_rest(user_id, rest_id):
 
     return fav_to_delete
 
+# def create_new_wish(user_id, rest_id):
+#     """create and return new wish"""
+
+#     new_wish = Wish(user_id= user_id, rest_id= rest_id)
+
+#     return new_wish
+
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)

@@ -31,6 +31,7 @@ class User(db.Model):
         return f"<User user_id= {self.user_id} name={self.fname}>"
 
     #favs = a list of Fav Objects
+    #wishes = a list of Wish Objects
 
     #following will link users, and then user1.my_friends.append(user_2) establish connection
     my_friends = db.relationship(
@@ -40,7 +41,6 @@ class User(db.Model):
         secondaryjoin=user_id == friend.c.f2_id,
         backref='friendship'
     )
-
 
 class Restaurant(db.Model):
     """Create a Restaurant"""
@@ -64,9 +64,10 @@ class Restaurant(db.Model):
         return f"<Restaurant rest_id= {self.rest_id} name={self.rest_name}>"
 
     #favs = a list of Fav Objects
+    #wishes = a list of Wish Objects
 
 class Favorite(db.Model):
-    """ Create a Favorite """
+    """Create a Favorite """
 
     __tablename__ = 'favorites'
 
@@ -83,7 +84,22 @@ class Favorite(db.Model):
     restaurant = db.relationship("Restaurant", backref="favs")
     user = db.relationship("User", backref="favs")
 
+# class Wish(db.Model):
+#     """Create a Wish"""
 
+#     __tablename__ = 'wishes'
+
+#     wish_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     rest_id = db.Column(db.String, db.ForeignKey('restaurants.rest_id'))
+#     user_id= db.Column(db.Integer, db.ForeignKey('users.user_id'))
+
+#     def __repr__(self):
+#         """Provide output when printing """
+
+#         return f"<Wish id={self.wish_id} on {self.rest_id} by {self.user_id}>"
+
+#     restaurant = db.relationship("Restaurant", backrefs="wishes")
+#     user = db.relationship("User", backrefs="wishes")
 
 def connect_to_db(app, db_URI="postgresql:///manji_data"):
     """Connect to database Call connect_to_db(app, echo=False) to not sett each SQLAlchemy execution"""

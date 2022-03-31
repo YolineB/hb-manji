@@ -50,13 +50,11 @@ def process_login():
     user = crud.get_user_by_email(email)
     if not user or user.password != password:
         flash("The email or password you entered was incorrect.")
-
         return redirect("/")
-    else:
-        # log in and store user's id in session
-        session["user_id"] = user.user_id
-        
-        return redirect('/my_manji')
+
+    # log in and store user's id in session
+    session["user_id"] = user.user_id
+    return redirect('/my_manji')
 
 @app.route("/logout")
 def process_logout():
@@ -108,7 +106,9 @@ def restaurants_favs_of_user(user_id):
 
     for user_rest in user_restaurants:
         rest_info = {'id': user_rest.rest_id, 'name': user_rest.restaurant.rest_name,
-                      'fav': crud.button_choices(user_rest.rest_id, session['user_id'])}
+                      'fav': crud.button_choices(user_rest.rest_id, session['user_id']),
+                      'coords': {'lat': user_rest.restaurant.rest_lat,
+                                    'lng': user_rest.restaurant.rest_long}}
 
         favs.append(rest_info)
 
@@ -170,9 +170,6 @@ def delete_fav_rest():
     rest_id = request.json.get("restID")
 
     fav_id_delete = crud.get_fav_by_user_and_rest(session['user_id'], rest_id)
-    print('\n'*5)
-    print(fav_id_delete)
-    print('\n'*5)
 
     db.session.delete(fav_id_delete)
     db.session.commit()
@@ -239,6 +236,9 @@ def profile_page(profile_user_id):
     return render_template('/profile.html', user_id=profile_user_id,
                             fav_list=fav_list, name=name, is_friend=is_friend)
 
+
+# @app.route('/user_fav_markers')
+# def restaurant_favorites_for_map:
 
 if __name__ == '__main__':
     connect_to_db(app)

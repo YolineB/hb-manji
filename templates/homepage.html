@@ -1,6 +1,12 @@
+<!DOCTYPE html> 
+
 {% extends 'base.html' %}
 
 {% block title %}Homepage{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="/static/css/maps.css"/>
+{% endblock %}
 
 {% block body %}
     {% include 'nav_bar.html' %}
@@ -10,33 +16,42 @@
 
     <input type="hidden" id="user_id" value="{{user.user_id}}"/> 
   
-
     <div id="friend_connect_link">
         <div className='row'></div>
-        
-        <a class="btn btn-success btn-lg" href="/my_manji/{{user.user_id}}">Profile</a>
- 
+        <a class="btn btn-success btn-lg" href="/my_manji/{{user.user_id}}">Profile</a> 
     </div>
 
     <a class="btn btn-info btn-lg" href="/search_restaurant" > Add a restaurant! </a>
+    <form>
+      <div class="mb-3">
+          <label for="citySearch" class="form-label">Search by City</label>
+          <input type="city" class="form-control" id="citySearch" >
+      </div>
+    </form>
 
-
-    <h2> Restaurants for {{user.fname}}: </h2>
-
-    <ul class="list-group" id="user_restaurants">
-    </ul>
-
-    <div></div>
-
-    <div id="friends"> </div>
-    
 </div>
 
+ <div id="map"></div>
 
+<div class="container">
+    <h2> Restaurants for {{user.fname}}: </h2>
+    <ul class="list-group" id="user_restaurants"></ul>
+    <div></div>
+    <div id="friends"> </div>
+</div> 
+    
 {% endblock %}
 
 {% block js %}
+
 <script src ="/static/edit_restaurant_fav.js"></script>
 <script src="/static/components/user_restaurants.jsx" type="text/jsx"></script>
 <script src="/static/components/friends.jsx" type="text/jsx"></script>
+
+<script src="/static/components/map.js" ></script>
+<script
+  async
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqSPEmkKzJZU1oytnJ2d45AThGnsYaja4&callback=initMap"
+></script>
+
 {% endblock %}

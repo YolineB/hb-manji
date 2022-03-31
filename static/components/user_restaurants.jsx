@@ -1,6 +1,5 @@
 'use strict';
 
-
 function RestaurantRow(props) {
     
     const chosenRest = {
@@ -29,23 +28,23 @@ function RestaurantRow(props) {
 function UserRestaurantsContainer(props) {
 
     const [userArr, setUserArr] = React.useState([]);
+    const [deleteButton, setDeleteButton] = React.useState(false);
     const [editButton, setEditButton] = React.useState(false);
-    const [ownBox, setOwnBox] = React.useState(false);
 
     React.useEffect(() => {
         fetch(`/userRestaurants/${props.userID}`)
         .then((response) => response.json())
         .then((data) => {
-            setOwnBox(data.can_edit)
+            setEditButton(data.can_edit)
             setUserArr(data.favs)});
     }, []);
 
-let buttonOption = '';
-if (ownBox){
-    buttonOption = <button className="btn btn-danger btn-sm" id="restaurant_edit" 
-                    onClick ={() => setEditButton(!editButton)} > 
-    Edit List </button>     
-}
+    let buttonOption = '';
+    if (editButton){
+        buttonOption = <button className="btn btn-danger btn-sm" id="restaurant_edit" 
+                        onClick ={() => setDeleteButton(!deleteButton)} > 
+        Edit List </button>     
+    }
 
     return (
         <React.Fragment>
@@ -59,7 +58,7 @@ if (ownBox){
                 </thead>
                 <tbody> 
                     {userArr.map(restaurant => <RestaurantRow key={restaurant.id} 
-                    restaurant={restaurant} editable={editButton}/>)}
+                    restaurant={restaurant} editable={deleteButton}/>)}
                 </tbody>
             </table>
         </React.Fragment>
@@ -67,28 +66,3 @@ if (ownBox){
 }
 const userID = document.querySelector('#user_id').value;
 ReactDOM.render(<UserRestaurantsContainer userID={userID}/>, document.getElementById('user_restaurants'));
-
-//delete={delete_option}
-
-
-
-
-// function addToUserList(btn,selectedRest){
-
-//     fetch('/add_to_restaurant_list', {
-//         method: 'POST',
-//         body: JSON.stringify(selectedRest),
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//       })
-//     .then(response => response.text())
-//     .then(answer => {
-//         if (answer === "newFav") {
-//             btn.innerHTML = 'Added!!';
-//             btn.disabled = true;
-//         } else {
-//             alert(`${selectedRest['name']} has already been added to your list!`)
-//         }
-//     });
-// }
