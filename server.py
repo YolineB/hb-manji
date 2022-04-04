@@ -1,4 +1,4 @@
-"""Server for Manjie App """
+"""Server for Manji App """
 
 from flask import (Flask, render_template, request, flash, session,
                    redirect, jsonify)
@@ -76,7 +76,7 @@ def registration_request():
     email = request.form.get("email")
     fname = request.form.get("fname")
     lname = request.form.get("lname")
-    home_zip = request.form.get("home_zip")
+    home_city = request.form.get("home_city")
     password = request.form.get("password")
 
     check_email = crud.get_user_by_email(email)
@@ -85,7 +85,7 @@ def registration_request():
         flash("Cannot create an account with that email. Try again.")
         return redirect('/register')
     else:
-        user = crud.create_user(fname, lname, email, home_zip, password)
+        user = crud.create_user(fname, lname, email, home_city, password)
         db.session.add(user)
         db.session.commit()
         flash('You registered! Try logging in')
@@ -106,12 +106,11 @@ def restaurants_favs_of_user(user_id):
 
     for user_rest in user_restaurants:
         rest_info = {'id': user_rest.rest_id, 'name': user_rest.restaurant.rest_name,
-                      'fav': crud.button_choices(user_rest.rest_id, session['user_id']),
+                      'favorited': crud.button_choices(user_rest.rest_id, session['user_id']),
                       'coords': {'lat': user_rest.restaurant.rest_lat,
                                     'lng': user_rest.restaurant.rest_long}}
 
         favs.append(rest_info)
-
 
     return jsonify({'can_edit':can_edit, 'favs': favs})
 
@@ -179,13 +178,15 @@ def delete_fav_rest():
 @app.route('/show_users_friends')
 def get_user_friends_list():
     """Retrieve list of user's friends"""
-    user = session['user_id']
-    user_friends = crud.get_friends_list_by_user(user_id=user)
+    user_id = session['user_id']
+    user_friends = crud.get_friends_list_by_user(user_id=user_id)
 
     friends = []
 
     for friend in user_friends:
-        friends.append({'id': friend.user_id, 'name': friend.fname})
+        friends.append({'id': friend.user_id, 'name': friend.fname, 
+        'favs': crud.get_restaurant_by_friend_id(friend.user_id, user_id )})
+
 
     return jsonify(friends)
 
@@ -193,7 +194,7 @@ def get_user_friends_list():
 def make_a_friendship(friend_id):
     """Create a frienship between user """
     user = session['user_id']
-   
+
     user_friend_updated = crud.add_a_friend(main_id=user, friend_id=friend_id)
 
     if user_friend_updated is not None:
@@ -237,8 +238,11 @@ def profile_page(profile_user_id):
                             fav_list=fav_list, name=name, is_friend=is_friend)
 
 
-# @app.route('/user_fav_markers')
-# def restaurant_favorites_for_map:
+# @app.route('/user_in_session')
+# def get_user():
+#     """Return signed in user_id to React"""
+
+#     return jsonify(session['user_id'])
 
 if __name__ == '__main__':
     connect_to_db(app)

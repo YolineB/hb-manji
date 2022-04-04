@@ -11,9 +11,9 @@ connect_to_db(app)
 db.create_all()
 
 
-u1 = User(fname='Test1', lname='Tester1', email='test1@test.test', password='password', home_zip='94107')
-u2 = User(fname='Test2', lname='Tester2', email='test2@test.test', password='password', home_zip='94611')
-u3 = User(fname='Test3', lname='Tester3', email='test3@test.test', password='password', home_zip='94612')
+u1 = User(fname='Test1', lname='Tester1', email='test1@test.test', password='password', home_city='Oakland')
+u2 = User(fname='Test2', lname='Tester2', email='test2@test.test', password='password', home_city='El Cerrito')
+u3 = User(fname='Test3', lname='Tester3', email='test3@test.test', password='password', home_city='San Francisco')
 
 r1 = Restaurant(rest_id='d0TL4FbfiRGbVwuCYUGaYA', rest_name="Vik's Chaat", rest_addy=['2390 4th St', 'Berkeley, CA 94710'],
                 rest_city='Berkeley', rest_zip=94710, rest_lat=37.861283288997, rest_long=-122.29840243871)

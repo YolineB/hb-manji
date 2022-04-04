@@ -2,14 +2,13 @@
 
 from model import db, User, Restaurant, Favorite, connect_to_db
 
-def create_user(fname, lname, email, home_zip, password):
+def create_user(fname, lname, email, home_city, password):
     """Create and return a new user"""
 
     user = User(fname=fname, lname=lname, email=email, 
-                home_zip=home_zip, password=password)
+                home_city=home_city, password=password)
 
     return user
-
 
 def get_user_by_email(email):
     """Retrieve user details"""
@@ -115,6 +114,29 @@ def get_fav_by_user_and_rest(user_id, rest_id):
     fav_to_delete = Favorite.query.filter(Favorite.user_id == user_id, Favorite.rest_id == rest_id).first()
 
     return fav_to_delete
+
+def get_restaurant_by_friend_id(friend_id, user_id ):
+    """Return a restaurant w/ info"""
+
+
+    friend_restaurants = get_favorites_by_user(friend_id)
+
+    favorites = []
+
+    for friend_restaurant in friend_restaurants:
+        restaurant_info = {
+            'id': friend_restaurant.rest_id,
+            'name': friend_restaurant.restaurant.rest_name,
+            'favorited': button_choices(friend_restaurant.rest_id, user_id),
+            'coords': {
+                'lat': friend_restaurant.restaurant.rest_lat,
+                'lng': friend_restaurant.restaurant.rest_long
+            }
+        }
+
+        favorites.append(restaurant_info)
+
+    return favorites
 
 # def create_new_wish(user_id, rest_id):
 #     """create and return new wish"""

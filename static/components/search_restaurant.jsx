@@ -19,7 +19,7 @@ function restChoice(idx,restObj, favArr) {
         <span key={idx} className="restaurant-body">
             <h5 className="restaurant-title">{restObj['name']}</h5>
             <div className="restaurant addy"> {restObj['location']['display_address']} </div>
-            <a href={restObj['url']} class="link-success">{restObj['name']} site info</a>
+            <a href={restObj['url']} className="link-success">{restObj['name']} site info</a>
             <button onClick={(evt) => addToUserFavList(evt.target,chosenRest)} className="btn btn-primary" disabled={isFav}>{msg}</button> 
         </span>);
 
