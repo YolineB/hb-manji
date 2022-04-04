@@ -112,7 +112,7 @@ def restaurants_favs_of_user(user_id):
 
         favs.append(rest_info)
 
-    return jsonify({'can_edit':can_edit, 'favs': favs})
+    return jsonify({'can_edit':can_edit, 'favs': favs, 'user_id': user_id})
 
 @app.route('/search_restaurant')
 def add_restaurant():

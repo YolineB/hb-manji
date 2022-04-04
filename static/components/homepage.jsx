@@ -6,7 +6,7 @@ function HomepageContainer(){
     const sessID = document.querySelector('#user_id').value
     // const [restsID, setRestsID] = React.useState(sessID)
 
-    const [userRestaurants, setUserRestaurants] = React.useState({can_edit: false, favs: []});
+    const [userRestaurants, setUserRestaurants] = React.useState({can_edit: false, favs: [], user_id:""});
     const [friendRestaurants, setFriendRestaurants] = React.useState(null);
 
     React.useEffect(() => {
@@ -21,6 +21,7 @@ function HomepageContainer(){
       };
     
     return (
+        
         <React.Fragment>
         <div>
            {friendRestaurants && <button onClick={clickHandler}> My Restaurants List </button>}

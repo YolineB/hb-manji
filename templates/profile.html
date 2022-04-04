@@ -40,8 +40,9 @@
                         my_manji/{{user_id}}
                     </div>
             {%endif%}
+            <div id="profile"> </div>
         </div>
-        <div id="user_restaurants" class = "container"> </div>
+       
     {%endif%}
     
 {% endblock %}
@@ -49,5 +50,6 @@
 {% block js %}
 <script src ="/static/edit_restaurant_fav.js"></script>
 <script src="/static/components/user_restaurants.jsx" type="text/jsx"></script>
+<script src="/static/components/profile.jsx" type="text/jsx"></script>
 
 {% endblock %}

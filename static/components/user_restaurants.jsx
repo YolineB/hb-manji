@@ -1,8 +1,37 @@
 'use strict';
+// function FavoriteMarkers(props){
+    // <FavoriteMarkers user_id={user_id}/>
+//     //let markersArr = [];
+//     const [favButton, setFavButton] = React.useState(false);
+
+//     // for (let rest of Object.values(favArr)){
+//     //     markersArr.push(new google.maps.Marker({
+//     //       position: rest['coords'],
+//     //       title: rest['name'],
+//     //       // map: window.basicMap,
+//     //     })); 
+//     //   }
+
+
+//     // const [markers, setMarkers] = React.useState(markersArr);
+
+//     // console.log(favButton)
+
+//     if (!favButton){
+//         initMap()
+//         userMap(props.user_id)
+//     }
+     
+//     return (
+//         <button className="btn btn-primary btn-sm" id="fav_markers" 
+//                         onClick ={() => setFavButton(!favButton)} > Show Favs</button>
+//     )
+// }
+
 
 function RestaurantItem(props) {
     const {restaurant, canEdit} = props;
-    //console.log(restaurant);
+    
     const chosenRest = {
         'restID' : restaurant.id, 
         'chosenRestObj' : "Rest ID already in system, not needed"
@@ -43,7 +72,6 @@ function RestaurantItem(props) {
             <td>{restaurant.name}</td>
             {canEdit && (isFavorite ? deleteButton: null)}
             {!canEdit && (isFavorite ? null: addFavoriteButton)}
-            {/* <td>{showButton} </td> */}
         </tr>
     );
 }
@@ -51,18 +79,16 @@ function RestaurantItem(props) {
 function RestaurantsList(props) {
     console.log(props)
     const {rests} = props;
-    const {can_edit, favs} = rests;
-
+    const {can_edit, favs, user_id} = rests;
 
     if (!rests.favs) {
         return (<div></div>)
     }
 
-
     const [canEdit, setCanEdit] = React.useState(false);
     
     let buttonEditOption = '';
-    // if (editButton){
+   
     if (can_edit){
         buttonEditOption = <button className="btn btn-danger btn-sm" id="restaurant_edit" 
                         onClick ={() => setCanEdit(!canEdit)} > 
@@ -80,7 +106,6 @@ function RestaurantsList(props) {
                     </tr>
                 </thead>
                 <tbody> 
-                    {/* {userArr.map(restaurant => <RestaurantRow key={restaurant.id}  */}
                     {favs.map(restaurant => <RestaurantItem key={restaurant.id}
                     restaurant={restaurant} canEdit={canEdit}/>)}
                 </tbody>
@@ -90,6 +115,7 @@ function RestaurantsList(props) {
 }
 // const userID = document.querySelector('#user_id').value;
 // ReactDOM.render(<RestaurantsList userID={userID}/>, document.getElementById('user_restaurants'));
+                    {/* {userArr.map(restaurant => <RestaurantRow key={restaurant.id}  */}
 
 
 {/* <FavoriteMarkers userID={props.userID} favs={userArr}/> */}
@@ -117,35 +143,7 @@ function RestaurantsList(props) {
     //     className='btn btn-primary btn-sm' type='button' id='delete' >Remove</button>
     // }
 
-    // function FavoriteMarkers(props){
     
-//     let markersArr = [];
-//     const [favButton, setFavButton] = React.useState(false);
-
-//     for (let rest of Object.values(favArr)){
-//         markersArr.push(new google.maps.Marker({
-//           position: rest['coords'],
-//           title: rest['name'],
-//           // map: window.basicMap,
-//         })); 
-//       }
-
-
-//     const [markers, setMarkers] = React.useState(markersArr);
-
-//     console.log(favButton)
-
-//     if (!favButton){
-//         initMap()
-//         userMap(markers, favButton)
-//     }
-    
-    
-//     return (
-//         <button className="btn btn-primary btn-sm" id="fav_markers" 
-//                         onClick ={() => setFavButton(!favButton)} > Show Favs</button>
-//     )
-// }
 
 // fetch(`/userRestaurants/${userID}`)
 //   .then((response) => response.json())

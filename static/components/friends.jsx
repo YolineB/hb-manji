@@ -3,12 +3,13 @@
 function FriendRow(props){
 
     const {friend, setRests} = props;
-    console.log(friend);
+
+    let userID = friend.id;
+    
     const clickHandler = () => {
-        setRests({can_edit: false, favs: friend.favs})
+        setRests({can_edit: false, favs: friend.favs, userID: userID})
       };
     
-    let userID = friend.id;
 
     return(
         <React.Fragment>
