@@ -108,11 +108,12 @@ def restaurants_favs_of_user(user_id):
         rest_info = {'id': user_rest.rest_id, 'name': user_rest.restaurant.rest_name,
                       'favorited': crud.button_choices(user_rest.rest_id, session['user_id']),
                       'coords': {'lat': user_rest.restaurant.rest_lat,
-                                    'lng': user_rest.restaurant.rest_long}}
+                                    'lng': user_rest.restaurant.rest_long},
+                    'url': user_rest.restaurant.rest_url, 'city': user_rest.restaurant.rest_city}
 
         favs.append(rest_info)
 
-    return jsonify({'can_edit':can_edit, 'favs': favs, 'user_id': user_id})
+    return jsonify({'can_edit':can_edit, 'favs': favs})
 
 @app.route('/search_restaurant')
 def add_restaurant():
@@ -184,9 +185,8 @@ def get_user_friends_list():
     friends = []
 
     for friend in user_friends:
-        friends.append({'id': friend.user_id, 'name': friend.fname, 
+        friends.append({'id': friend.user_id, 'name': friend.fname,
         'favs': crud.get_restaurant_by_friend_id(friend.user_id, user_id )})
-
 
     return jsonify(friends)
 
@@ -203,7 +203,7 @@ def make_a_friendship(friend_id):
         flash('You have added your friend!')
     else:
         flash('Already homies')
-    
+  
     return redirect(f'/my_manji/{friend_id}')
 
 @app.route('/my_profile')
@@ -238,11 +238,6 @@ def profile_page(profile_user_id):
                             fav_list=fav_list, name=name, is_friend=is_friend)
 
 
-# @app.route('/user_in_session')
-# def get_user():
-#     """Return signed in user_id to React"""
-
-#     return jsonify(session['user_id'])
 
 if __name__ == '__main__':
     connect_to_db(app)

@@ -57,10 +57,12 @@ def create_new_rest(rest_dict):
     rest_zip = rest_dict['location']['zip_code']
     rest_lat = rest_dict['coordinates']['latitude']
     rest_long = rest_dict['coordinates']['longitude']
+    rest_url = rest_dict['url']
 
     restaurant = Restaurant(rest_id=rest_id, rest_name=rest_name, rest_addy=rest_addy,
                         rest_city=rest_city, rest_zip=rest_zip,
-                        rest_lat=rest_lat, rest_long=rest_long)
+                        rest_lat=rest_lat, rest_long=rest_long,
+                        rest_url=rest_url)
 
     return restaurant
 

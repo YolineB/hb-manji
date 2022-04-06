@@ -56,6 +56,7 @@ class Restaurant(db.Model):
     rest_zip = db.Column(db.Integer, nullable=False)
     rest_lat = db.Column(db.Float, nullable=False)
     rest_long = db.Column(db.Float, nullable=False)
+    rest_url = db.Column(db.String(200))
 
 
     def __repr__(self):

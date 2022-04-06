@@ -1,7 +1,4 @@
-'use strict';
-
 function ProfilePage(){
-   
     let userID = document.querySelector('#user_id').value;
     const [userRestaurants, setUserRestaurants] = React.useState({can_edit: false, favs: [], user_id:""});
 
@@ -14,12 +11,9 @@ function ProfilePage(){
 
    return (
     <React.Fragment> 
-        <RestaurantsList rests={userRestaurants}/>
+        <RestaurantsList restaurants={userRestaurants}/>
     </React.Fragment>
    )
-
-
 }
-
 
 ReactDOM.render(<ProfilePage />, document.getElementById('profile'));

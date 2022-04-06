@@ -1,41 +1,31 @@
-'use strict';
-
-
 function HomepageContainer(){
-
-    const sessID = document.querySelector('#user_id').value
-    // const [restsID, setRestsID] = React.useState(sessID)
-
-    const [userRestaurants, setUserRestaurants] = React.useState({can_edit: false, favs: [], user_id:""});
-    const [friendRestaurants, setFriendRestaurants] = React.useState(null);
+    const currentUserID = document.querySelector('#user_id').value
+    const [activeUserID, setActiveUserID] = React.useState(currentUserID)
+    const [userRestaurants, setUserRestaurants] = React.useState({can_edit: false, favs: []});
 
     React.useEffect(() => {
-        fetch(`/userRestaurants/${sessID}`)
+        fetch(`/userRestaurants/${activeUserID}`)
         .then((response) => response.json())
         .then((data) => {
             setUserRestaurants(data)});
-    }, []);
+    }, [activeUserID]);
 
-    const clickHandler = () => {
-        setFriendRestaurants(null);
+    const onCurrentUserClick = () => {
+       setActiveUserID(currentUserID)
       };
     
+    const onFriendClick = (friendID) => {
+        setActiveUserID(friendID);
+    };
+
     return (
-        
-        <React.Fragment>
-        <div>
-           {friendRestaurants && <button onClick={clickHandler}> My Restaurants List </button>}
-            <ul className="list-group" id="user_restaurants"> 
-                <RestaurantsList rests={friendRestaurants || userRestaurants}/>    
-            </ul> 
-            <FriendsList setRests={setFriendRestaurants}/>
-        </div>
-        </React.Fragment>
-    )
-    
+            <div className='homepage-container'>
+                <button onClick={onCurrentUserClick}><h2>{`CURRENT_USER_NAME ${currentUserID}`}</h2></button>
+                <RestaurantsList restaurants={userRestaurants}/>    
+                <FriendsList onFriendClick={onFriendClick}/>
+            </div>
+    )  
 }
 
-
-// const userID = document.querySelector('#user_id').value;
 ReactDOM.render(<HomepageContainer />, document.getElementById('homepage'));
 

@@ -21,6 +21,7 @@ function restChoice(idx,restObj, favArr) {
             <div className="restaurant addy"> {restObj['location']['display_address']} </div>
             <a href={restObj['url']} className="link-success">{restObj['name']} site info</a>
             <button onClick={(evt) => addToUserFavList(evt.target,chosenRest)} className="btn btn-primary" disabled={isFav}>{msg}</button> 
+            <button onClick={(evt) => addToUserFavList(evt.target,chosenRest)} className="btn btn-primary" disabled={isFav}>{msg}</button> 
         </span>);
 
 }
@@ -83,30 +84,3 @@ function SearchRestaurantContainer() {
 
 ReactDOM.render(<SearchRestaurantContainer  />, document.getElementById('search_restaurant'));
 
-
-// function addToUserList(btn,chosenRest){
-
-//     let yelpId = chosenRest['id'];
-
-//     const formInputs = {
-//         'restId' : yelpId, 
-//         'chosenRestObj' : chosenRest
-//     }
-
-//     fetch('/add_to_restaurant_list', {
-//         method: 'POST',
-//         body: JSON.stringify(formInputs),
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//       })
-//     .then(response => response.text())
-//     .then(answer => {
-//         if (answer === "newFav") {
-//             btn.innerHTML = 'Added!!';
-//             btn.disabled = true;
-//         } else {
-//             alert(`${chosenRest['name']} has already been added to your list!`)
-//         }
-//     });
-// }
