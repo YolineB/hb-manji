@@ -94,13 +94,9 @@ def registration_request():
 
 @app.route('/userRestaurants/<int:user_id>')
 def restaurants_favs_of_user(user_id):
-    """Return json user restaurant list"""
+    """Return json user restaurant list of favorite instances"""
 
     user_restaurants = crud.get_favorites_by_user(user_id)
-
-    # can_edit = False
-    # if user_id == session['user_id']:
-    #     can_edit = True
     
     restaurants = []
 
@@ -109,7 +105,9 @@ def restaurants_favs_of_user(user_id):
                       'favorited': crud.button_choices(user_rest.rest_id, session['user_id']),
                       'coords': {'lat': user_rest.restaurant.rest_lat,
                                     'lng': user_rest.restaurant.rest_long},
-                    'url': user_rest.restaurant.rest_url, 'city': user_rest.restaurant.rest_city}
+                    'url': user_rest.restaurant.rest_url, 'city': user_rest.restaurant.rest_city,
+                    # 'comment': user_rest.comment}
+                    'comment': 'I am comment!!', 'fav_id': user_rest.fav_id}
 
         restaurants.append(rest_info)
 

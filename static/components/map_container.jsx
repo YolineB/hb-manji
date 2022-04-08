@@ -55,7 +55,7 @@ function MapContainer({restaurants}) {
                     position: restaurant.coords,
                     info: { name: restaurant.name,
                             url: restaurant.url,
-                            comment: "A comment regarding the restaurant"
+                            comment: restaurant.comment
                           },
                     map: map,
                     });
@@ -78,14 +78,12 @@ function MapContainer({restaurants}) {
             marker.setLabel(marker.info.name);
           });
 
-          // infoWindow.addListener('mouseout', () => infoWindow.close());
           marker.addListener('mouseout', ()=> {
             marker.setLabel('');
-            setTimeout(()=> infoWindow.close(), 2000)
+            setTimeout(()=> infoWindow.close(), 2500)
           })
           
           marker.addListener('click', ()=> {
-            // infoWindow.close();
             infoWindow.setContent(markerInfo);
             infoWindow.open(map, marker);
            

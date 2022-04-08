@@ -1,16 +1,16 @@
-function useUsers(userId) {
-    const [user, setUser] = React.useState([])
+// function useUsers(userId) {
+//     const [user, setUser] = React.useState([])
 
-    React.useEffect(() => {
-        fetch(`/userRestaurants/${userId}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setRestaurants(data)
-            });
-    }, [user]);
+//     React.useEffect(() => {
+//         fetch(`/userRestaurants/${userId}`)
+//             .then((response) => response.json())
+//             .then((data) => {
+//                 setRestaurants(data)
+//             });
+//     }, [user]);
 
-    return restaurants
-}
+//     return restaurants
+// }
 //get all user informaation w/out needing hidden thing
 
 function useRestaurants(userId) {
