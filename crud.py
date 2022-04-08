@@ -28,7 +28,7 @@ def get_favorites_by_user(user_id):
     return user_favs_list
 
 
-def get_rest_ids_by_user(user_id):
+def get_favorite_rest_ids_by_user(user_id):
     """Return list of rest ids by user"""
 
     user_rests = get_favorites_by_user(user_id)
@@ -43,7 +43,7 @@ def get_rest_ids_by_user(user_id):
 def button_choices(restaurant_id, user_id):
     """Return bool if restaurant_id in fav list of user in session"""
 
-    fav_rest_ids = get_rest_ids_by_user(user_id)
+    fav_rest_ids = get_favorite_rest_ids_by_user(user_id)
 
     return restaurant_id in fav_rest_ids
 
@@ -139,13 +139,6 @@ def get_restaurant_by_friend_id(friend_id, user_id ):
         favorites.append(restaurant_info)
 
     return favorites
-
-# def create_new_wish(user_id, rest_id):
-#     """create and return new wish"""
-
-#     new_wish = Wish(user_id= user_id, rest_id= rest_id)
-
-#     return new_wish
 
 if __name__ == '__main__':
     from server import app

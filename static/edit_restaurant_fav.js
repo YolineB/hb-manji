@@ -1,8 +1,8 @@
 'use strict';
 
-function addToUserFavList(btn,selectedRest){
+function addToFavList(btn,selectedRest){
     
-    fetch('/add_to_restaurant_list', {
+    fetch('/add_to_favorite_list', {
         method: 'POST',
         body: JSON.stringify(selectedRest),
         headers: {

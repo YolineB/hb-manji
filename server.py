@@ -98,11 +98,11 @@ def restaurants_favs_of_user(user_id):
 
     user_restaurants = crud.get_favorites_by_user(user_id)
 
-    can_edit = False
-    if user_id == session['user_id']:
-        can_edit = True
+    # can_edit = False
+    # if user_id == session['user_id']:
+    #     can_edit = True
     
-    favs = []
+    restaurants = []
 
     for user_rest in user_restaurants:
         rest_info = {'id': user_rest.rest_id, 'name': user_rest.restaurant.rest_name,
@@ -111,9 +111,9 @@ def restaurants_favs_of_user(user_id):
                                     'lng': user_rest.restaurant.rest_long},
                     'url': user_rest.restaurant.rest_url, 'city': user_rest.restaurant.rest_city}
 
-        favs.append(rest_info)
+        restaurants.append(rest_info)
 
-    return jsonify({'can_edit':can_edit, 'favs': favs})
+    return jsonify(restaurants)
 
 @app.route('/search_restaurant')
 def add_restaurant():
@@ -134,20 +134,20 @@ def search_restaurants():
 
     yelp_results = yelp_search.search_restaurant(term, location)
     # return a list of favs as well to disable button on search
-    rest_favs = crud.get_rest_ids_by_user(user_id)
-    results = {'yelp_results': yelp_results, 'rest_favs': rest_favs}
+    favorites = crud.get_favorite_rest_ids_by_user(user_id)
+    results = {'yelp_results': yelp_results, 'favorites': favorites}
 
     return jsonify(results)
 
-@app.route('/add_to_restaurant_list', methods=["POST"])
-def add_to_user_list():
-    """Add to user's list if not already there"""
+@app.route('/add_to_favorite_list', methods=["POST"])
+def add_to_favorite_list():
+    """Add to user's favorite list if not already there"""
     rest_id = request.json.get("restID")
-    chosen_rest_obj = request.json.get("chosenRestObj")
+    chosen_rest_obj = request.json.get("chosenRestaurantObj")
 
     user_id = session['user_id']
     #checks if user has rest in their favorites
-    rest_list = crud.get_rest_ids_by_user(user_id)
+    rest_list = crud.get_favorite_rest_ids_by_user(user_id)
 
     if (rest_id in rest_list):
         return 'notNew'
@@ -220,7 +220,7 @@ def profile_page(profile_user_id):
 
     name = prof_user_info.fname + " " + prof_user_info.lname
     fav_obj = crud.get_favorites_by_user(profile_user_id)
-  
+
     is_friend = False
     if 'user_id' in session:
         the_friends = crud.friends_user_ids(session['user_id'])

@@ -1,6 +1,8 @@
 function ProfilePage(){
     let userID = document.querySelector('#user_id').value;
-    const [userRestaurants, setUserRestaurants] = React.useState({can_edit: false, favs: [], user_id:""});
+    let currentUserID = document.querySelector('#current_user_id').value;
+    const canEdit = userID === currentUserID
+    const [userRestaurants, setUserRestaurants] = React.useState([]);
 
     React.useEffect(() => {
         fetch(`/userRestaurants/${userID}`)
@@ -9,11 +11,7 @@ function ProfilePage(){
             setUserRestaurants(data)});
     }, []);
 
-   return (
-    <React.Fragment> 
-        <RestaurantsList restaurants={userRestaurants}/>
-    </React.Fragment>
-   )
+    return <RestaurantsList restaurants={userRestaurants} canEdit={canEdit}/>
 }
 
-ReactDOM.render(<ProfilePage />, document.getElementById('profile'));
+ReactDOM.render(<ProfilePage />, document.getElementById('restaurant_list'));

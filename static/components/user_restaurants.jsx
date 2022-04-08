@@ -1,67 +1,45 @@
-function filterFavorites(citySearchString, favorites){
-    
-    let filtered_favorites = favorites.map((restaurant) => {
-        if (restaurant.city.startsWith(citySearchString)){
-            filtered_favorites
-        }
-    })
-    console.log(filtered_favorites)
-}
-
-function RestaurantItem({restaurant, canEdit}) {
-    
+function RestaurantItem({restaurant, editEnabled}) {
     const chosenRest = {
         'restID' : restaurant.id, 
-        'chosenRestObj' : "Rest ID already in system, not needed"
+        'chosenRestaurantObj' : "Restaurant ID already in system, not needed"
     }
-   
-    const addFavoriteButton =  
-            <button 
-                onClick={(evt) => addToUserFavList(evt.target,chosenRest)}
-                className="btn btn-primary btn-lg">
-                Add to your list too!
-            </button>
         
-
-    const deleteButton = 
-            <button onClick={(evt) => deleteFromFavList(evt.target,chosenRest)}
-                className='btn btn-primary btn-sm' type='button' id='delete'>
-                Remove
-            </button>
-        
-
     return (
         <tr> 
-            <th scope="row"><a href={restaurant.url} target="_blank" className="link-success">{restaurant.name}</a></th>
+            <th scope="row">
+                <a href={restaurant.url} target="_blank" className="link-success">{restaurant.name}</a>
+            </th>
             <td>{restaurant.city}</td>
-            <td>{canEdit && deleteButton}
-            {!canEdit && (restaurant.favorited ? null: addFavoriteButton)}
+            <td>{
+                editEnabled &&
+                <button
+                    onClick={(evt) => deleteFromFavList(evt.target,chosenRest)}
+                    className='btn btn-primary btn-sm' type='button' id='delete'>
+                    Remove
+                </button>
+            }
+            {
+                !editEnabled && !restaurant.favorited && 
+                <button
+                    onClick={(evt) => addToFavList(evt.target,chosenRest)}
+                    className="btn btn-primary btn-lg">
+                    Add to favorites!
+                </button>
+            }
             </td>
         </tr>
     );
 }
 
-function RestaurantsList({restaurants}) {
-    const {can_edit, favs} = restaurants;
-    const [canEdit, setCanEdit] = React.useState(false);
-    const [cityFilter, setCityFilter] = React.useState("")
-    
-    console.log(favs)
-    if (cityFilter){
-        filterFavorites(cityFilter, favs)
-    }   
-    //city search state, that give city string
-    //filter favs
-    //a helper function that takes favs, and returns only the restaurant
-    //obj that are equal to search
-    if (!favs) return "No favorites yet";
-    
-    let buttonEditOption = '';
-    if (can_edit){
-        buttonEditOption = <button className="btn btn-danger btn-sm" id="restaurant_edit" 
-                        onClick ={() => setCanEdit(!canEdit)} > 
-        Edit List </button>     
-    }
+function RestaurantsList({restaurants, canEdit}) {
+    const [editEnabled, setEditEnabled] = React.useState(false);
+    const [cityFilter, setCityFilter] = React.useState("");
+
+    const filterRestaurants = () => restaurants.filter(
+        (restaurant) => restaurant.city.toLowerCase().startsWith(cityFilter.toLowerCase())
+    );
+
+    if (restaurants.length === 0) return "No favorites yet";
 
     return (
         <table className="table table-dark table-striped table-responsive-xxl table-responsive table-sm ">
@@ -69,15 +47,34 @@ function RestaurantsList({restaurants}) {
                 <tr>
                     <th scope="col">Restaurant Name </th>
                     <th scope="col">City
-                    <input type="text" placeholder="city filter" 
-                    onChange={(evt)=> setCityFilter(evt.target.value)}></input>
+                    <input
+                        type="text"
+                        placeholder="city filter" 
+                        onChange={(evt)=> setCityFilter(evt.target.value)}
+                    />
                     </th>
-                    <th scope="col">{buttonEditOption}</th>
+                    <th scope="col">
+                        {canEdit && 
+                            <button 
+                                className="btn btn-danger btn-sm" 
+                                id="restaurant_edit" 
+                                onClick ={() => setEditEnabled(!editEnabled)} > 
+                                Edit List 
+                            </button>
+                        }
+                    </th>
                 </tr>
             </thead>
             <tbody> 
-                {favs.map(restaurant => <RestaurantItem key={restaurant.id}
-                restaurant={restaurant} canEdit={canEdit}/>)}
+                {filterRestaurants().map(
+                    restaurant =>
+                        <RestaurantItem
+                            key={restaurant.id}
+                            restaurant={restaurant}
+                            editEnabled={editEnabled}
+                        />
+                    )
+                }
             </tbody>
         </table>
     )

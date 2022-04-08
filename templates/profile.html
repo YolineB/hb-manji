@@ -24,6 +24,7 @@
         </div>
     {% else %}
         <input type="hidden" id="user_id" value="{{user_id}}"/>
+        <input type="hidden" id="current_user_id" value="{{session['user_id']}}"/>
         <div class="container">
             {%if user_id != session['user_id'] %}
                 {%if is_friend %}
@@ -40,7 +41,7 @@
                         my_manji/{{user_id}}
                     </div>
             {%endif%}
-            <div id="profile"> </div>
+            <div id="restaurant_list"> </div>
         </div>
        
     {%endif%}

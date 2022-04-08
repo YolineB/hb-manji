@@ -1,27 +1,30 @@
-'use strict';
 
-//makes list of restaurant choices, checks if rest already in favs and disables button
-function restChoice(idx,restObj, favArr) {
-    let isFav = favArr.includes(restObj['id']);
+function restChoice(idx,restaurantObj, favArr) {
+    let isFav = favArr.includes(restaurantObj['id']);
     let msg;
     if (isFav) {
-        msg = 'Already in your list!!'
+        msg = 'Already a favorite!'
     } else {
         msg = 'Add to favorites'
     }
 
-    const chosenRest = {
-        'restID' : restObj['id'], 
-        'chosenRestObj' : restObj
+    const chosenRestaurant = {
+        'restID' : restaurantObj['id'], 
+        'chosenRestaurantObj' : restaurantObj
     }
+
+    let favoriteButton = <button 
+                            onClick={(evt) => addToFavList(evt.target,chosenRestaurant)} 
+                            className="btn btn-primary" disabled={isFav}>
+                            {msg}
+                        </button> 
     
     return (
         <span key={idx} className="restaurant-body">
-            <h5 className="restaurant-title">{restObj['name']}</h5>
-            <div className="restaurant addy"> {restObj['location']['display_address']} </div>
-            <a href={restObj['url']} className="link-success">{restObj['name']} site info</a>
-            <button onClick={(evt) => addToUserFavList(evt.target,chosenRest)} className="btn btn-primary" disabled={isFav}>{msg}</button> 
-            <button onClick={(evt) => addToUserFavList(evt.target,chosenRest)} className="btn btn-primary" disabled={isFav}>{msg}</button> 
+            <h5 className="restaurant-title">{restaurantObj['name']}</h5>
+            <div className="restaurant addy"> {restaurantObj['location']['display_address']} </div>
+            <a href={restaurantObj['url']} target="_blank" className="link-success">{restaurantObj['name']} site info</a>
+            {favoriteButton}
         </span>);
 
 }
@@ -40,8 +43,8 @@ function SubmitSearch(props){
         .then((response) => response.json())
         .then((data) => {
             let result = [];
-            for (let [i, rest] of Object.entries(data['yelp_results'])){
-                result.push(restChoice(i, rest, data['rest_favs']));
+            for (let [i, restaurant] of Object.entries(data['yelp_results'])){
+                result.push(restChoice(i, restaurant, data['favorites']));
             };
             props.addResults(result);
         });

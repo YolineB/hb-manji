@@ -24,34 +24,28 @@
     <a class="btn btn-info btn-lg" href="/search_restaurant" > Search restaurants to add! </a> 
 </div>
 
-<div class="container">
-<input class="mb-3" id="autocomplete" placeholder="Enter a city" type="text"/>
-</div>
-<div id="maps"></div>
-
-
-
 <div class="container" id="homepage"></div>
-
 
 {% endblock %}
 
 {% block js %}
 
 <script src ="/static/edit_restaurant_fav.js"></script>
-<script src="/static/components/user_restaurants.jsx" type="text/jsx"></script>
-<script src="/static/components/friends.jsx" type="text/jsx"></script>
 
-<script src="/static/components/homepage.jsx" type="text/jsx"></script>
-
-<script src="/static/components/maps.js" ></script>
-
-<script
+<!-- <script src="/static/components/maps.js" ></script> -->
+<!-- <script
   async
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqSPEmkKzJZU1oytnJ2d45AThGnsYaja4&libraries=places&callback=initMap"
+></script> -->
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqSPEmkKzJZU1oytnJ2d45AThGnsYaja4&libraries=places"
 ></script>
 
-
+<script src="/static/components/map_container.jsx" type="text/jsx"></script>
+<script src="/static/components/user_restaurants.jsx" type="text/jsx"></script>
+<script src="/static/components/friends.jsx" type="text/jsx"></script>
+<script src="/static/components/homepage.jsx" type="text/jsx"></script>
 
 {% endblock %}
 

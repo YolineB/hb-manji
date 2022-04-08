@@ -50,7 +50,7 @@ function userMap(userID){
   fetch(`/userRestaurants/${userID}`)
   .then((response) => response.json())
   .then((data) => {
-    let favsArr = data.favs;
+    let favsArr = data;
     for (let rest of favsArr){
       myMarker = new google.maps.Marker({
         position: rest['coords'],
@@ -90,3 +90,4 @@ function userMap(userID){
 //     }
 //   }
 // }
+
