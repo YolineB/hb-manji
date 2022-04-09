@@ -140,6 +140,15 @@ def get_restaurant_by_friend_id(friend_id, user_id ):
 
     return favorites
 
+def edit_comment(favorite_id, new_comment):
+    """ add a comment to favorited restaurant"""
+
+    fav_to_edit = Favorite.query.filter(Favorite.fav_id == favorite_id).first()
+
+    fav_to_edit.comment = new_comment
+
+    return fav_to_edit
+
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)

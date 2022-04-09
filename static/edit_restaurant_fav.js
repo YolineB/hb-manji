@@ -40,3 +40,30 @@ function deleteFromFavList(btn,selectedRest){
     });
 }
 
+function commentEdit (btn, favoriteID, newComment){
+    console.log(favoriteID)
+    console.log(newComment)
+
+    let formInput = {
+        favoriteID,
+        newComment
+    }
+
+    fetch('/edit_favorite_comment', {
+        method: 'POST',
+        body: JSON.stringify(formInput),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+    .then(response => response.text())
+    .then(answer => {
+        if (answer === "comment_updated") {
+            btn.innerHTML = 'updated!';
+            btn.disabled = true;
+        } else {
+            alert('Error from edit_favorite_button function')
+        }
+    });
+
+}

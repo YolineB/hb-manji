@@ -1,20 +1,44 @@
-function restaurantComment(restaurant){
-    // console.log(restaurant);
-    return restaurant.fav_id
+function RestaurantCommentModal({restaurant}) {
+    const [comment, setComment] = React.useState("");
+
+    const onSave = (evt) => {
+        commentEdit(evt, restaurant.fav_id, comment)
+    }
+
+    return(
+        <div className="modal fade" id="restaurantCommentModal" tabIndex="-1" aria-labelledby="restaurantCommentModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="restaurantCommentModalLabel">{restaurant && restaurant.name}</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body">
+                    <textarea
+                        rows="4"
+                        cols="50"
+                        placeholder="What do you think of this restaurant?"
+                        onChange={(evt) => setComment(evt.target.value)}
+                    />
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-primary" onClick={onSave}>Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
 }
 
-function RestaurantItem({restaurant, editEnabled, canEdit}) {
+function RestaurantItem({restaurant, editEnabled, canEdit, onRestaurantCommentClick}) {
     const chosenRest = {
         'restID' : restaurant.id, 
         'chosenRestaurantObj' : "Restaurant ID already in system, not needed"
     }
-    const [currentComment, setCurrentComment] = React.useState(restaurant.comment)
-    console.log(restaurant.fav_id)
 
-    const onCommentClick = () => {
-        let newComment = restaurantComment(restaurant)
-        setCurrentComment(newComment)
-    };
+    const onCommentClick = () => onRestaurantCommentClick(restaurant.id)
+
     return (
         <tr> 
             <th scope="row">
@@ -24,12 +48,16 @@ function RestaurantItem({restaurant, editEnabled, canEdit}) {
             <td>
                 {canEdit && 
                 (<div>
-                    {currentComment}
-                    <button
-                        onClick={onCommentClick}
-                        className='btn btn-primary btn-sm' type='button' id='comment'>
-                        edit
-                    </button>
+                    {restaurant.comment}
+                        <button
+                            onClick={onCommentClick}
+                            className="btn btn-primary btn-sm"
+                            type="button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#restaurantCommentModal"
+                        >
+                         edit comment
+                        </button>
                 </div>
                 )
                 }
@@ -59,6 +87,7 @@ function RestaurantItem({restaurant, editEnabled, canEdit}) {
 function RestaurantsList({restaurants, canEdit}) {
     const [editEnabled, setEditEnabled] = React.useState(false);
     const [cityFilter, setCityFilter] = React.useState("");
+    const [selectedRestaurant, setSelectedRestaurant] = React.useState(null);
     
     const filterRestaurants = () => restaurants.filter(
         (restaurant) => restaurant.city.toLowerCase().startsWith(cityFilter.toLowerCase())
@@ -66,104 +95,53 @@ function RestaurantsList({restaurants, canEdit}) {
 
     if (restaurants.length === 0) return "No favorites yet";
 
+    const onRestaurantCommentClick = (restaurant_id) => setSelectedRestaurant(
+        restaurants.find(
+            restaurant => restaurant.id === restaurant_id
+        )
+    );
+
     return (
-        <table className="table table-dark table-striped table-responsive-xxl table-responsive table-sm ">
-            <thead> 
-                <tr>
-                    <th scope="col">Restaurant Name </th>
-                    <th scope="col">City
-                    <input
-                        type="text"
-                        placeholder="city filter" 
-                        onChange={(evt)=> setCityFilter(evt.target.value)}
-                    />
-                    </th>
-                    <th scope="col"> Comment </th>
-                    <th scope="col">
-                        {canEdit && 
-                            <button 
-                                className="btn btn-danger btn-sm" 
-                                id="restaurant_edit" 
-                                onClick ={() => setEditEnabled(!editEnabled)} > 
-                                Edit List 
-                            </button>
-                        }
-                    </th>
-                </tr>
-            </thead>
-            <tbody> 
-                {filterRestaurants().map(
-                    restaurant =>
-                        <RestaurantItem
-                            key={restaurant.id}
-                            restaurant={restaurant}
-                            editEnabled={editEnabled}
-                            canEdit={canEdit}
+        <React.Fragment>
+            <RestaurantCommentModal restaurant={selectedRestaurant} />
+            <table className="table table-dark table-striped table-responsive-xxl table-responsive table-sm ">
+                <thead> 
+                    <tr>
+                        <th scope="col">Restaurant Name </th>
+                        <th scope="col">City
+                        <input
+                            type="text"
+                            placeholder="city filter" 
+                            onChange={(evt)=> setCityFilter(evt.target.value)}
                         />
-                    )
-                }
-            </tbody>
-        </table>
+                        </th>
+                        <th scope="col"> Comment </th>
+                        <th scope="col">
+                            {canEdit && 
+                                <button 
+                                    className="btn btn-danger btn-sm" 
+                                    id="restaurant_edit" 
+                                    onClick ={() => setEditEnabled(!editEnabled)} > 
+                                    Edit List 
+                                </button>
+                            }
+                        </th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    {filterRestaurants().map(
+                        restaurant =>
+                            <RestaurantItem
+                                key={restaurant.id}
+                                restaurant={restaurant}
+                                editEnabled={editEnabled}
+                                canEdit={canEdit}
+                                onRestaurantCommentClick={onRestaurantCommentClick}
+                            />
+                        )
+                    }
+                </tbody>
+            </table>
+        </React.Fragment>
     )
 }
-
-{/* <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div> */}
-{/* <FavoriteMarkers userID={props.userID} favs={userArr}/> */}
-
-// fetch(`/userRestaurants/${userID}`)
-//   .then((response) => response.json())
-//   .then((data => {
-//     for (let rest of Object.values(data.favs)){
-//       myMarker = new google.maps.Marker({
-//         position: rest['coords'],
-//         title: rest['name'],
-//         map: window.basicMap,
-//       });
-//     }
-//   }))
-
-
-// function FavoriteMarkers(props){
-    // <FavoriteMarkers user_id={user_id}/>
-//     //let markersArr = [];
-//     const [favButton, setFavButton] = React.useState(false);
-
-//     // for (let rest of Object.values(favArr)){
-//     //     markersArr.push(new google.maps.Marker({
-//     //       position: rest['coords'],
-//     //       title: rest['name'],
-//     //       // map: window.basicMap,
-//     //     })); 
-//     //   }
-
-
-//     // const [markers, setMarkers] = React.useState(markersArr);
-
-//     // console.log(favButton)
-
-//     if (!favButton){
-//         initMap()
-//         userMap(props.user_id)
-//     }
-     
-//     return (
-//         <button className="btn btn-primary btn-sm" id="fav_markers" 
-//                         onClick ={() => setFavButton(!favButton)} > Show Favs</button>
-//     )
-// }

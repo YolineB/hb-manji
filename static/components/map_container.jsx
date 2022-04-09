@@ -55,7 +55,7 @@ function MapContainer({restaurants}) {
                     position: restaurant.coords,
                     info: { name: restaurant.name,
                             url: restaurant.url,
-                            comment: restaurant.comment
+                            comment: restaurant.comment ? restaurant.comment : ""
                           },
                     map: map,
                     });
@@ -80,7 +80,7 @@ function MapContainer({restaurants}) {
 
           marker.addListener('mouseout', ()=> {
             marker.setLabel('');
-            setTimeout(()=> infoWindow.close(), 2500)
+            setTimeout(()=> infoWindow.close(), 3000)
           })
           
           marker.addListener('click', ()=> {

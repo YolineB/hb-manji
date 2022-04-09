@@ -106,8 +106,7 @@ def restaurants_favs_of_user(user_id):
                       'coords': {'lat': user_rest.restaurant.rest_lat,
                                     'lng': user_rest.restaurant.rest_long},
                     'url': user_rest.restaurant.rest_url, 'city': user_rest.restaurant.rest_city,
-                    # 'comment': user_rest.comment}
-                    'comment': 'I am comment!!', 'fav_id': user_rest.fav_id}
+                    'comment': user_rest.comment, 'fav_id': user_rest.fav_id}
 
         restaurants.append(rest_info)
 
@@ -235,7 +234,19 @@ def profile_page(profile_user_id):
     return render_template('/profile.html', user_id=profile_user_id,
                             fav_list=fav_list, name=name, is_friend=is_friend)
 
+@app.route('/edit_favorite_comment', methods=["POST"])
+def favorite_restaurant():
+    """Updated favorite comment for us"""
 
+    favorite_id = request.json.get('favoriteID')
+    new_comment = request.json.get('newComment')
+
+    favorite_edited = crud.edit_comment(favorite_id, new_comment)
+
+    db.session.add(favorite_edited)
+    db.session.commit()
+
+    return "comment_updated"
 
 if __name__ == '__main__':
     connect_to_db(app)
