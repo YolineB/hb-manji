@@ -22,7 +22,7 @@ from model import connect_to_db, db
 @app.route('/')
 def log_in_page():
     """First page to prompt log-in"""
-   
+
     if 'user_id' in session:
         return redirect('/my_manji')
 
@@ -247,6 +247,20 @@ def favorite_restaurant():
     db.session.commit()
 
     return "comment_updated"
+
+@app.route('/userProfile/')
+def get_session_user_info():
+    """Send session user to homepage"""
+    user = crud.get_user_by_id(session['user_id'])
+
+    user_info = {
+       ' user_id' : session['user_id'],
+        'first' : user.fname,
+        'profile' : user.profile_pic
+    }
+
+    return jsonify(user_info)
+
 
 if __name__ == '__main__':
     connect_to_db(app)

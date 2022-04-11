@@ -1,16 +1,20 @@
-// function useUsers(userId) {
-//     const [user, setUser] = React.useState([])
+function MainUser({onCurrentUserClick}) {
+    const [userInfo, setUserInfo] = React.useState({})
 
-//     React.useEffect(() => {
-//         fetch(`/userRestaurants/${userId}`)
-//             .then((response) => response.json())
-//             .then((data) => {
-//                 setRestaurants(data)
-//             });
-//     }, [user]);
+    React.useEffect(() => {
+        fetch('/userProfile/')
+            .then((response) => response.json())
+            .then((data) => {
+                setUserInfo(data)
+            });
+    }, []);
 
-//     return restaurants
-// }
+    return (
+        <div>
+            <button onClick={() => onCurrentUserClick()}><h2>CURRENT_USER_NAME: {userInfo.first}</h2></button>
+        </div>
+     ) 
+}
 //get all user informaation w/out needing hidden thing
 
 function useRestaurants(userId) {
@@ -29,6 +33,7 @@ function useRestaurants(userId) {
 
 function HomepageContainer(){
     const currentUserID = document.querySelector('#user_id').value
+    // const [currentUserID, setCurrentUsesrID] =  React.useState('')
     const [activeUserID, setActiveUserID] = React.useState(currentUserID)
     const userRestaurants = useRestaurants(activeUserID)
 
@@ -44,8 +49,9 @@ function HomepageContainer(){
 
     return (
         <div className='homepage-container'>
+            <MainUser onCurrentUserClick={onCurrentUserClick}/>
+            {/* <button onClick={onCurrentUserClick}><h2>{`CURRENT_USER_NAME ${currentUserID}`}</h2></button> */}
             <MapContainer restaurants={userRestaurants}/>
-            <button onClick={onCurrentUserClick}><h2>{`CURRENT_USER_NAME ${currentUserID}`}</h2></button>
             <FriendsList onFriendClick={onFriendClick}/>
             <RestaurantsList restaurants={userRestaurants} canEdit={canEdit}/>
         </div>
