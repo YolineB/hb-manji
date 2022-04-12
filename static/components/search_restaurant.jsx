@@ -20,14 +20,20 @@ function restChoice(idx,restaurantObj, favArr) {
                         </button> 
     
     return (
-        <span key={idx} className="restaurant-body">
-            <h5 className="restaurant-title">{restaurantObj['name']}</h5>
-            <div className="restaurant addy"> {restaurantObj['location']['display_address']} </div>
-            <a href={restaurantObj['url']} target="_blank" className="link-success">{restaurantObj['name']} site info</a>
-            {favoriteButton}
-        </span>);
-
+        <React.Fragment>
+            <div className="col-sm-4">
+                <div className="card text-center"> 
+                    <div className="card-body">
+                    <a href={restaurantObj['url']} target="_blank"><h5 className="restaurant-title">{restaurantObj['name']}</h5></a>
+                        <p class="card-text">{restaurantObj['location']['display_address']}</p>
+                        {favoriteButton}
+                    </div>
+                </div>
+            </div>
+        </React.Fragment>
+    )
 }
+
 
 function SubmitSearch(props){
 
@@ -71,6 +77,8 @@ function SubmitSearch(props){
        </React.Fragment>
    )
 }
+
+
 //change to RestChoice to help make it a generator that will make a card with each button choice
 function SearchRestaurantContainer() {
 
@@ -79,8 +87,10 @@ function SearchRestaurantContainer() {
     return (
         <React.Fragment>
             <SubmitSearch  addResults={setSearchResults}/>
-            < h2>Search Results</h2>
-            <div className="grid">{searchResults}</div>
+            <h2>Search Results</h2>
+            <div className="row">
+                {searchResults}
+            </div>
         </React.Fragment>
     )
 }

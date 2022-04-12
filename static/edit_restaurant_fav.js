@@ -40,7 +40,7 @@ function deleteFromFavList(btn,selectedRest){
     });
 }
 
-function commentEdit (btn, favoriteID, newComment){
+function commentEdit(btn, favoriteID, newComment){
     console.log(favoriteID)
     console.log(newComment)
 

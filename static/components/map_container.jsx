@@ -9,10 +9,11 @@ const HOME_COORDS = {
   lng: -95.7129,
 };
 
-function MapContainer({restaurants}) {
+function MapContainer({userId}) {
   const mapRef = React.useRef(null);
   const citySearchRef = React.useRef(null);
   const [map, setMap] = React.useState(null);
+  const restaurants = useRestaurants(userId)
  
   React.useEffect(() => {
     if (mapRef.current && google) {
@@ -103,10 +104,11 @@ function MapContainer({restaurants}) {
   return (
     <React.Fragment>
       <input className="mb-3" ref={citySearchRef} placeholder="Enter a city" type="text"/>
-      <div
-        ref={mapRef}
-        style={{ width: '700px', height: '350px' }}
-      />
+        <div
+          ref={mapRef}
+          className="map-container"
+          style={{ width: '700px', height: '350px' }}
+        />
     </React.Fragment>
 	)
 }
