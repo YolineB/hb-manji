@@ -27,7 +27,7 @@ function restChoice(idx,restaurantObj, favArr) {
                         <a href={restaurantObj['url']} target="_blank">
                             <h5 className="restaurant-title">{restaurantObj['name']}</h5>
                         </a>
-                        <p class="card-text">{restaurantObj['location']['display_address']}</p>
+                        <p className="card-text">{restaurantObj['location']['display_address']}</p>
                     </div>
                     <div className="card-footer text-center">
                         {favoriteButton}
@@ -39,24 +39,24 @@ function restChoice(idx,restaurantObj, favArr) {
 }
 
 
-function SubmitSearch(props){
-
+function SearchForm({onSearch, onLoading}){
     const [term, setTerm] = React.useState('');
     const [location, setCity] = React.useState('');
-
 
     function submitSearch(){
         const queryString = new URLSearchParams({'term': term, 'location': location}).toString();
         const url = `/api_rest_search?${queryString}`;
+        onLoading(true);
 
         fetch(url)
         .then((response) => response.json())
         .then((data) => {
-            let result = [];
+            let results = [];
             for (let [i, restaurant] of Object.entries(data['yelp_results'])){
-                result.push(restChoice(i, restaurant, data['favorites']));
+                results.push(restChoice(i, restaurant, data['favorites']));
             };
-            props.addResults(result);
+            onSearch(results);
+            onLoading(false);
         });
     }
 
@@ -85,16 +85,22 @@ function SubmitSearch(props){
 
 //change to RestChoice to help make it a generator that will make a card with each button choice
 function SearchRestaurantContainer() {
-
     const [searchResults, setSearchResults] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(false);
+
+    const onSearch = (results) => setSearchResults(results)
+    const onLoading = (loading) => setIsLoading(loading)
 
     return (
         <React.Fragment>
-            <SubmitSearch  addResults={setSearchResults}/>
-                <h2>Search Results</h2>
-            <div id="search-grid">
-                {searchResults}
-            </div>
+            <SearchForm onSearch={onSearch} onLoading={onLoading}/>
+            <h2>Search Results</h2>
+            {isLoading && 'Loading...'}
+            {!isLoading &&
+                <div id="search-grid">
+                    {searchResults}
+                </div>
+            }
         </React.Fragment>
     )
 }

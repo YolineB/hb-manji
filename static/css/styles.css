@@ -2,6 +2,7 @@ body {
     background-color: rgb(242, 226, 216);
     margin:5em;
     margin-top: 0em;
+    text-align: center
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -11,27 +12,34 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
-row{
-    margin: 10px
-}
-
 body #first-page {
-    width: 700px;
-    height: 500px;
+    width: 100%;
+    height: 700px;
     background: url("/static/images/manjillustrationlogin1.svg"), url("/static/images/manjillustrationlogin2.svg");
     background-repeat: no-repeat, no-repeat;
     background-size: cover;
     background-position: 
-                top right, 
-                top left;
+                -600px, 
+                300px;
 }
 
 #log-in-form{
     text-align: center;
     background-color: transparent;
 }
+#register-btn{
+    background-image: url("/static/images/manjiregister.svg");
+    /* background-size: cover; */
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 500px;
+    
+}
 
-/* #left-sidebar{
+#first-page{
+    margin: 0px;
+}
+#left-sidebar{
     background-image: url("/static/images/manjillustrationlogin1.svg");
     background-repeat: no-repeat;
     background-position: center;
@@ -40,7 +48,7 @@ body #first-page {
     height: 100%;
     
     
-} */
+}
 
 input {
   border-radius: 25px;
@@ -61,6 +69,7 @@ nav{
     background-color: #FBE7B9;
     border: solid 3pt #ED9783;
     border-radius: 25px;
+    text-align: left;
 
 }
 
@@ -96,7 +105,7 @@ ul.navbar-nav{
 
 #map-search{
     position: absolute;
-    width: 10%;
+    width: 14%;
 }
 
 .friend-container{
@@ -163,7 +172,7 @@ ul.navbar-nav{
     border: 3px solid #BD4A84;
     border-radius: 25px;
     background-color: #DB6B63;
-    height: 15em;
+    height: 30em;
     overflow: scroll;
     margin: 50px;
 }

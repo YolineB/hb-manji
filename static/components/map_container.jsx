@@ -58,6 +58,11 @@ function MapContainer({userId}) {
                             url: restaurant.url,
                             comment: restaurant.comment ? restaurant.comment : ""
                           },
+                    icon: {
+                      url: '/static/images/manjiicecream.svg',
+                      scaledSize: new google.maps.Size(100, 100),
+                    },
+                    animation: google.maps.Animation.DROP,
                     map: map,
                     });
         markers.push(marker)
