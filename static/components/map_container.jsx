@@ -103,12 +103,11 @@ function MapContainer({userId}) {
   
   return (
     <React.Fragment>
-      <input className="mb-3" ref={citySearchRef} placeholder="Enter a city" type="text"/>
         <div
           ref={mapRef}
-          className="map-container"
-          style={{ width: '700px', height: '350px' }}
+          className="map-container col-9"
         />
+      <input id="map-search" ref={citySearchRef} placeholder="Enter a city" type="text"/>
     </React.Fragment>
 	)
 }

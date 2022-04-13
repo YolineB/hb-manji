@@ -4,9 +4,9 @@ function FriendRow({friend, onFriendClick}){
       };
     
     return(
-        <li>
-            <button className='btn btn-primary btn-lrg' onClick={clickHandler}>{friend.name} </button>
-        </li>
+        <div id="friends">
+         <button className='btn btn-primary btn-lrg' onClick={clickHandler}>{friend.name} </button>
+        </div>
     )
 }
 
@@ -21,8 +21,17 @@ function FriendsList({onFriendClick}){
 
     return (
         <React.Fragment>
+        <div className="friend-container justify-content-end col-3">
             <h2>Friends' List</h2> 
-            <ul>{friendArr.map((friend) => <FriendRow key={friend.id} friend={friend} onFriendClick={onFriendClick}/>)}</ul>
+            <div className="grid">
+                {friendArr.map((friend) => 
+                <FriendRow 
+                    key={friend.id} 
+                    friend={friend} 
+                    onFriendClick={onFriendClick}
+                />)}
+            </div>
+        </div>  
         </React.Fragment>
     )
 }

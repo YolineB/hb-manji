@@ -10,7 +10,7 @@ function UserCard({onCurrentUserClick}) {
     }, []);
 
     return (
-        <div>
+        <div className="justify-content-center">
             <button onClick={() => onCurrentUserClick()}><h2>CURRENT_USER_NAME: {userInfo.first}</h2></button>
         </div>
      ) 
@@ -33,9 +33,14 @@ function HomepageContainer(){
 
     return (
         <div className='homepage-container'>
-            <UserCard onCurrentUserClick={onCurrentUserClick}/>
-            <MapContainer userId={activeUserID} />
-            <FriendsList onFriendClick={onFriendClick}/>
+            <div className="row">
+                <UserCard onCurrentUserClick={onCurrentUserClick}/>
+            </div>
+            <div className="row" id="map-friend">
+                <MapContainer userId={activeUserID} className="map-container"/>
+                <FriendsList onFriendClick={onFriendClick} />
+            </div>
+        
             <RestaurantsList userId={activeUserID} canEdit={canEdit}/>
         </div>
     )  

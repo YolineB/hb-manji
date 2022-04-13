@@ -40,10 +40,7 @@ function deleteFromFavList(btn,selectedRest){
     });
 }
 
-function commentEdit(btn, favoriteID, newComment){
-    console.log(favoriteID)
-    console.log(newComment)
-
+function commentEdit(favoriteID, newComment){
     let formInput = {
         favoriteID,
         newComment
@@ -59,8 +56,7 @@ function commentEdit(btn, favoriteID, newComment){
     .then(response => response.text())
     .then(answer => {
         if (answer === "comment_updated") {
-            btn.innerHTML = 'updated!';
-            btn.disabled = true;
+            console.log(answer)
         } else {
             alert('Error from edit_favorite_button function')
         }

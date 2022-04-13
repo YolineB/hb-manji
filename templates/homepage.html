@@ -9,22 +9,20 @@
 
 {% block body %}
     {% include 'nav_bar.html' %}
-<div class="container">
-
-    <h1> Why Hello There, {{user.fname}}</h1>
-
-    <input type="hidden" id="user_id" value="{{user.user_id}}"/> 
-  
-    <div id="friend_connect_link">
-        <div className='row'></div>
-        <a class="btn btn-success btn-lg" href="/my_manji/{{user.user_id}}">Profile</a> 
+    
+    <section id="homepage"></section>
+    
+    <div class="container">
+    
+        <input type="hidden" id="user_id" value="{{user.user_id}}"/> 
+      
+        <div id="friend_connect_link">
+            <div className='row'></div>
+            <a class="btn btn-info btn-lg" href="/search_restaurant" > Search restaurants to add! </a> 
+            <a class="btn btn-success btn-lg" href="/my_manji/{{user.user_id}}">Profile</a> 
+        </div>
+    
     </div>
-
-    <a class="btn btn-info btn-lg" href="/search_restaurant" > Search restaurants to add! </a> 
-</div>
-
-<div class="container" id="homepage"></div>
-
 {% endblock %}
 
 {% block js %}

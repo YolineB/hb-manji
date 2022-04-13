@@ -1,28 +1,37 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div class="container justify-content-center" id="log-in"> 
-  <h1>Manji!</h1>
-    
-  <h2>Log In</h2>
-  <form action="/login" method="POST"  id="log-in">
-    <div class="col-12" >
-      <input id="field-email" type="text" name="email" required placeholder="Email">
-    </div>
-
-    <p>
-      <input type="password" name="password" placeholder="Password">
-    </p>
-    
-    <p>
-      <input type="submit" value="Log me in!" class="btn btn-primary">
-    </p>
-  </form>
-
-  <h2>Don't have an account? Create one here</h2>
+<div id="first-page" class="container-fluid justify-content-center d-flex">  
+  <!-- <span class="row"> 
   
-  <a href="/register" class="btn btn-link btn-lg"> Manji me up!</a>
+    <div class="col-3" id="left-sidebar">
+    </div> -->
 
+    <div class="col-6" id="log-in-form">
+    <form action="/login" method="POST"  id="log-in">
+      <h1>Manji!</h1>
+      
+      <h2>Log In</h2>
+      <div class="col-12" >
+        <input id="field-email" type="text" name="email" required placeholder="Email">
+      </div>
+
+      <p>
+        <input type="password" name="password" placeholder="Password">
+      </p>
+      
+      <p>
+        <input type="submit" value="Log me in!" class="btn btn-primary">
+      </p>
+    </form>
+
+    <h2>Don't have an account? Create one here</h2>
+    <a href="/register" class="btn btn-link btn-lg"> Manji me up!</a>
+    <!-- </div> 
+    
+    <div class="col-3" id="right-sidebar"></div>
+  </span>   -->
 </div>
+
 
 {% endblock %}

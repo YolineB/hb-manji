@@ -15,19 +15,23 @@ function restChoice(idx,restaurantObj, favArr) {
 
     let favoriteButton = <button 
                             onClick={(evt) => addToFavList(evt.target,chosenRestaurant)} 
-                            className="btn btn-primary" disabled={isFav}>
+                            className="btn btn-primary btn-sm" disabled={isFav}>
                             {msg}
                         </button> 
     
     return (
         <React.Fragment>
-            <div className="col-sm-4">
+            <div className="col-sm-4" key={idx}>
                 <div className="card text-center"> 
-                    <div className="card-body">
-                    <a href={restaurantObj['url']} target="_blank"><h5 className="restaurant-title">{restaurantObj['name']}</h5></a>
+                    <div className="card-body overflow-auto">
+                        <a href={restaurantObj['url']} target="_blank">
+                            <h5 className="restaurant-title">{restaurantObj['name']}</h5>
+                        </a>
                         <p class="card-text">{restaurantObj['location']['display_address']}</p>
-                        {favoriteButton}
                     </div>
+                    <div className="card-footer text-center">
+                        {favoriteButton}
+                    </div> 
                 </div>
             </div>
         </React.Fragment>
@@ -87,8 +91,8 @@ function SearchRestaurantContainer() {
     return (
         <React.Fragment>
             <SubmitSearch  addResults={setSearchResults}/>
-            <h2>Search Results</h2>
-            <div className="row">
+                <h2>Search Results</h2>
+            <div id="search-grid">
                 {searchResults}
             </div>
         </React.Fragment>

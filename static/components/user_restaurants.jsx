@@ -1,9 +1,8 @@
-function RestaurantCommentModal({restaurant, onCommentSubmit}) {
+function RestaurantCommentModal({restaurant}) {
     const [comment, setComment] = React.useState("");
 
-    const onSave = (evt) => {
-        commentEdit(evt, restaurant.fav_id, comment);
-        onCommentSubmit()
+    const onSave = () => {
+        commentEdit(restaurant.fav_id, comment);
     }
 
     return(
@@ -24,7 +23,7 @@ function RestaurantCommentModal({restaurant, onCommentSubmit}) {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary" onClick={onSave}>Save changes</button>
+                        <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={onSave}>Save changes</button>
                     </div>
                 </div>
             </div>
@@ -41,30 +40,32 @@ function RestaurantItem({restaurant, editEnabled, canEdit, onRestaurantCommentCl
     const onCommentClick = () => onRestaurantCommentClick(restaurant.id)
 
     return (
-        <tr> 
-            <th scope="row">
-                <a href={restaurant.url} target="_blank" className="link-success">{restaurant.name}</a>
-            </th>
-            <td>{restaurant.city}</td>
-            <td>
-                {canEdit && 
-                (<div>
-                    {restaurant.comment}
-                        <button
-                            onClick={onCommentClick}
-                            className="btn btn-primary btn-sm"
-                            type="button"
-                            data-bs-toggle="modal"
-                            data-bs-target="#restaurantCommentModal"
-                        >
-                         edit comment
-                        </button>
+        <div>
+            <div className="card text-center">
+                <div className="card-body overflow-auto">
+                    <a href={restaurant.url} target="_blank">
+                        <h5 className="restaurant-title">{restaurant.name}</h5>
+                    </a>
+                    <p className="card-text"> {restaurant.city} </p>
+                    <div className="comment-box">
+                        {restaurant.comment}
+                        {canEdit &&
+                            <div id="comment-edit"> 
+                                <button
+                                    onClick={onCommentClick}
+                                    className="btn btn-primary btn-sm"
+                                    type="button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#restaurantCommentModal"
+                                >
+                                    Edit
+                                </button>
+                            </div>
+                        }
+                    </div>
                 </div>
-                )
-                }
-                {!canEdit && restaurant.comment}
-            </td>
-            <td>{
+                <div className="card-footer text-center">
+                {
                 editEnabled && canEdit &&
                 <button
                     onClick={(evt) => deleteFromFavList(evt.target,chosenRest)}
@@ -80,8 +81,9 @@ function RestaurantItem({restaurant, editEnabled, canEdit, onRestaurantCommentCl
                     Add to favorites!
                 </button>
             }
-            </td>
-        </tr>
+                </div>
+            </div>
+        </div>
     );
 }
 
@@ -89,7 +91,6 @@ function RestaurantsList({userId, canEdit}) {
     const [editEnabled, setEditEnabled] = React.useState(false);
     const [cityFilter, setCityFilter] = React.useState("");
     const [selectedRestaurant, setSelectedRestaurant] = React.useState(null);
-    const [commentSet, setCommentSet] = React.useState(false)
     const restaurants = useRestaurants(userId)
     
     const filterRestaurants = () => restaurants.filter(
@@ -104,55 +105,46 @@ function RestaurantsList({userId, canEdit}) {
         )
     );
 
-    const onCommentSubmit = () => setCommentSet(true)
-
     return (
         <React.Fragment>
-            <RestaurantCommentModal restaurant={selectedRestaurant} onCommentSubmit={onCommentSubmit}/>
-            <div className="restaurant-container">
-                <div className="row"> 
-                
-                </div>
-                <table className="table table-dark table-striped table-responsive-xxl table-responsive table-sm">
-                    <thead> 
-                        <tr>
-                            <th scope="col">Restaurant Name </th>
-                            <th scope="col">City
-                            <input
-                                type="text"
-                                placeholder="city filter" 
-                                onChange={(evt)=> setCityFilter(evt.target.value)}
+            <RestaurantCommentModal restaurant={selectedRestaurant}/>
+            <div id="restaurant-container"> 
+                <div id="city-filter">
+                    <input
+                        className="col-4"
+                        type="text"
+                        placeholder="city filter" 
+                        onChange={(evt)=> setCityFilter(evt.target.value)}
+                    />
+                <span className="col-5" id="edit-enable">
+                    {canEdit && 
+                        <button 
+                            className="btn btn-danger btn-sm" 
+                            id="restaurant_edit" 
+                            onClick ={() => setEditEnabled(!editEnabled)} > 
+                            Edit List 
+                        </button>
+                    }
+                </span>
+                <a class="btn btn-info btn-lg" href="/search_restaurant" > Search restaurants to add! </a>
+                </div>  
+
+
+
+                <div className="restaurant-grid">
+                    {filterRestaurants().map(
+                        restaurant =>
+                            <RestaurantItem
+                                key={restaurant.id}
+                                restaurant={restaurant}
+                                editEnabled={editEnabled}
+                                canEdit={canEdit}
+                                onRestaurantCommentClick={onRestaurantCommentClick}
                             />
-                            </th>
-                            <th scope="col"> Comment </th>
-                            <th scope="col">
-                                {canEdit && 
-                                    <button 
-                                        className="btn btn-danger btn-sm" 
-                                        id="restaurant_edit" 
-                                        onClick ={() => setEditEnabled(!editEnabled)} > 
-                                        Edit List 
-                                    </button>
-                                }
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody> 
-                        {filterRestaurants().map(
-                            restaurant =>
-                                <RestaurantItem
-                                    key={restaurant.id}
-                                    restaurant={restaurant}
-                                    editEnabled={editEnabled}
-                                    canEdit={canEdit}
-                                    onRestaurantCommentClick={onRestaurantCommentClick}
-                                />
-                            )
-                        }
-                    </tbody>
-                </table>
+                        )
+                    }
+                </div>
             </div>
         </React.Fragment>
     )
 }
-
