@@ -21,9 +21,9 @@ function FriendsList({onFriendClick}){
 
     return (
         <React.Fragment>
-        <div className="friend-container justify-content-end col-3">
+        <div className="friend-container col-3">
             <img id="friends-list" src="/static/images/manjifriends.png"/>
-            <div className="grid">
+            <div id="friend-grid" className="grid">
                 {friendArr.map((friend) => 
                 <FriendRow 
                     key={friend.id} 

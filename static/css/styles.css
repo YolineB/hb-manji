@@ -41,6 +41,7 @@ body #first-page {
 #main-logo{
     background-image: url("/static/images/manji.png");
     background-repeat: no-repeat;
+    width: 100%;
     height: 100px;
     background-size: contain;
     background-position: center;
@@ -51,13 +52,32 @@ body #first-page {
     text-align: center;
     background-color: transparent;
 }
+
+
 #register-btn{
     background-image: url("/static/images/manjiregister.png");
     background-size: cover;
     background-repeat: no-repeat;
     width: 11em;
-    height: 3em;
-    
+    height: 3em;  
+}
+
+#registration{
+    margin-top: 50px;
+}
+
+#wine-left{
+    background-image: url("/static/images/wineright.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+#wine-right{
+    background-image: url("/static/images/wineleft.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left;
 }
 
 #first-page{
@@ -88,7 +108,6 @@ nav{
     margin: 0%;
     
 }
-
 
 #current-page{
     text-align: right;
@@ -168,6 +187,7 @@ ul.navbar-nav{
     height: 100%;
     padding: 0px;
     box-shadow: 0px 0px 10px #DB6B63;
+    overflow: scroll;
 }
 
 
@@ -176,9 +196,8 @@ form{
 }
 
 #friends-list{
-    position: relative;
-    top: -35px;
-    width: 50%;
+    position: absolute;
+    top: 450px;
 }
 
 #friends{

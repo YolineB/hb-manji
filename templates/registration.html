@@ -1,8 +1,35 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<div id="registration" class="container">
+  
+  <div class="row">
+    <div id="wine-left" class="col">
+    </div>
+    <div class="col-6 ">
+        <a id="main-logo" href="/" class="btn"> </a>
+        <form action="/registration" method="POST">
+             <span><input type="text" placeholder="First name" aria-label="First name" name="fname"> </span> 
+             <span><input type="text" placeholder="Last name" aria-label="Last name" name="lname"> </span> 
+             <input name="email" placeholder="email" type="email" aria-describedby="emailHelp">
+             <div class="form-text">We'll never share your email with anyone else.</div>
+             <input name="password" type="password" placeholder="password">
+             <div>
+              <button type="submit"> 
+                <img id="register-btn"src="/static/images/manjiregister.png"/>
+              </button>
+            </div>
+        </form>
+    </div>
+    <div id="wine-right" class="col">
+    </div>
+  </div>
+  
+  
+</div>
+{% endblock %}
 
-<h1>Registration</h1>
+<!-- <h1>Registration</h1>
   
   <h2>Create an Account</h2>
   <form action="/registration" method="POST">
@@ -37,7 +64,5 @@
   
     <button type="submit" class="btn btn-primary">Submit</button>
 
-  </form>
-
-{% endblock %}
+  </form> -->
 
