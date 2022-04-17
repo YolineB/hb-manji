@@ -25,6 +25,7 @@ button{
 a{
     text-decoration: none;
 }
+
 body #first-page {
     width: 100%;
     height: 700px;
@@ -35,6 +36,15 @@ body #first-page {
     background-position: 
                 -537px, 
                 291px;
+}
+
+#main-logo{
+    background-image: url("/static/images/manji.png");
+    background-repeat: no-repeat;
+    height: 100px;
+    background-size: contain;
+    background-position: center;
+    margin: 15px;
 }
 
 #log-in-form{
@@ -52,10 +62,6 @@ body #first-page {
 
 #first-page{
     margin: 0px;
-}
-
-.background #main-page{
-    background-color: blue;
 }
 
 
@@ -155,27 +161,38 @@ ul.navbar-nav{
 
 .friend-container{
     text-align: center;
-    border: solid 5px #DB6B63;
-    background-color: #DB6B63;
+    border: solid 10px #DB6B63;
+    background-color: transparent;
     border-radius: 25px;
     margin: 10px;
     height: 100%;
-    padding: 10px;
+    padding: 0px;
+    box-shadow: 0px 0px 10px #DB6B63;
 }
 
-/* .restaurants-container{
-    border: solid 5px purple;
-    padding: 2px;
-    border-radius: 25px;
-    margin: 20px;
-} */
 
 form{
     margin: 0;
 }
 
+#friends-list{
+    position: relative;
+    top: -35px;
+    width: 50%;
+}
+
 #friends{
     margin: 10px;
+    border-radius: 10em 10em;
+    border: solid 5px #ED9783;
+    background-color:#FBE7B9;
+    width: 60%;
+    height: 60px;
+    color:#BD4A84
+}
+
+#search-container{
+    margin: 2em;
 }
 
 #search-restaurants{
@@ -186,6 +203,15 @@ form{
     height: 3em;
 }
 
+#search-form-container{
+    border: solid 5px #ED9783;
+    background-color: #ED9783;
+    padding: 30px;
+    width: 110%;
+    border-radius: 25%;
+    margin-top: 50px;
+}
+
 #search-grid {
     display: grid;
     grid-template-columns: 4fr 4fr 4fr;
@@ -194,6 +220,33 @@ form{
     background-color:#ED9783;
     border-radius: 25px;
     justify-content: space-evenly;
+    background-image: url("/static/images/manjisearchlogo.png");
+
+}
+
+#load-grid {
+    height: 300px;
+    align-items: center;
+    background-color:#ED9783;
+    border-radius: 25px;
+    justify-content: space-evenly;
+    background-image: url("/static/images/manjisearchlogo.png");
+
+}
+
+#search-grid .card{
+    width: 12em;
+    border: 5px solid #ED9783;
+    background-color: #F3E2D9;
+}
+
+#search-nav{
+    background-image: url("/static/images/croissant.png"), url("/static/images/cinnabun.png");
+    background-repeat: no-repeat, no-repeat;
+    background-size: contain;
+    margin: 0;
+    background-position: 80%, 
+                        90%;
 }
 
 
@@ -211,15 +264,6 @@ form{
     overflow: scroll;
     box-shadow: 0px 0px 10px #BD4A84;
 }
-
-
-/* .restaurant-grid{
-    display: grid;
-    grid-template-columns: 4fr 4fr 4fr;
-    grid-gap: 10px;
-    align-items: center;
-    border-radius: 25px;
-} */
 
 
 #restaurant-container{
@@ -246,7 +290,7 @@ form{
 }
 
 #comment-edit{
-    background-image: url(/static/images/comment.png);
+    background-image: url("/static/images/comment.png");
     background-repeat: no-repeat;
     background-size: cover;
     width: 50px;
@@ -308,9 +352,8 @@ form{
     z-index: 8
 }
 
-
 #log-in-btn {
-    background-image: url("/static/images/manjilogo.png");
+    background-image: url("/static/images/manjilogin.png");
     background-size: cover;
     width: 11em;
     height: 3.5em;
@@ -324,10 +367,12 @@ form{
 }
 
 #cake{
-    background-image: url("/static/images/manjicake.svg");
-    background-size: cover;
-    height: 20em;
+    background-image: url("/static/images/manjicake.png");
+    background-size: contain;
+    height: 10em;
+    width: 100%;
     background-repeat: no-repeat;
+    margin: 15%;
 }
 
 .city-filter{

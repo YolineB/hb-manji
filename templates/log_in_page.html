@@ -3,30 +3,27 @@
 {% block body %}
 <div id="first-page">  
   
-    <div id="log-in-form" class="container">
+  <div id="log-in-form" class="container">
     <form action="/login" method="POST"  id="log-in">
-      <h1>Manji!</h1>
-      
-      <h2>Log In</h2>
-      
-        <input id="field-email" type="text" name="email" required placeholder="Email">
-      
+      <div id="main-logo"> </div>
+      <input id="field-email" type="text" name="email" required placeholder="Email">
       <p>
         <input type="password" name="password" placeholder="Password">
       </p>
+        
+       <button  type="submit" value=""> 
+         <div id="log-in-btn"> </div>
+        </button> 
+    </form>
+
+     <h4>or</h4>
       
-       <button  type="submit" value=""><div id="log-in-btn"> </div></button>
-
-    </form>
-
-    <h4>or</h4>
-    
     <form action="/register">
-      <button type="submit" >
-        <div id="register-btn"> </div>
-      </button>
+        <button type="submit" >
+          <div id="register-btn"> </div>
+        </button>
     </form>
-    </div> 
+  </div> 
        
 </div>
 

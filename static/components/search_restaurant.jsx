@@ -61,6 +61,7 @@ function SearchForm({onSearch, onLoading}){
 
    return (
        <React.Fragment>
+            <div id="search-form-container">
                 <div className='row'>
                     <h2>Search Name of Restaurant</h2>
                     <input id="search-keyword" onChange={(event) => setTerm(event.target.value)}
@@ -74,7 +75,8 @@ function SearchForm({onSearch, onLoading}){
                 <button type='button' onClick={submitSearch}>
                     <div id="submit-search"></div> 
                 </button>
-                <div id="cake"></div>
+            </div>
+            <div id="cake"></div>
        </React.Fragment>
    )
 }
@@ -91,16 +93,20 @@ function SearchRestaurantContainer() {
     return (
         <React.Fragment>
             <div className="container" id="nav-profile">
-                <div className="row" >
+                <div className="row" id="search-nav" >
                     <NavBar canEdit={true} currentPage={currentPage}/>
                 </div>
-                <div className="row">
+                <div id="search-container"className="row">
                     <div className="col-md-3">
                         <SearchForm onSearch={onSearch} onLoading={onLoading}/>
                     </div>
                     <div className="col-md-8 offset-1">
                         <h2>Search Results</h2>
-                        {isLoading && 'Loading...'}
+                            {isLoading && 
+                                <div id="load-grid">
+                                    <h6>Loading...</h6>
+                                </div>
+                            }
                         {!isLoading &&
                             <div id="search-grid">
                                 {searchResults}
