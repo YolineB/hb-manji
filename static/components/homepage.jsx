@@ -9,16 +9,20 @@ function UserCard({onCurrentUserClick}) {
             });
     }, []);
 
+
     return (
-        <div className="justify-content-center">
-            <button onClick={() => onCurrentUserClick()}><h2>CURRENT_USER_NAME: {userInfo.first}</h2></button>
-        </div>
-     ) 
+        <div id="current-user-btn" className="col-2 offset-1">
+            <button className="col-10" onClick={() => onCurrentUserClick()}>
+                <h2>{userInfo.first}</h2>
+            </button>
+         </div> 
+    ) 
 }
-//get all user informaation w/out needing hidden thing
+{/* <a className="btn btn-success btn-sm col-1 z-index-3" href="/my_manji/{{user.user_id}}">P</a> */}
 
 function HomepageContainer(){
     const currentUserID = document.querySelector('#user_id').value
+    const currentPage = "Homepage"
     const [activeUserID, setActiveUserID] = React.useState(currentUserID)
 
     const onCurrentUserClick = () => {
@@ -33,15 +37,17 @@ function HomepageContainer(){
 
     return (
         <div className='homepage-container'>
-            <div className="row">
+            <div className="row" id="nav-profile">
+                <NavBar canEdit={canEdit} currentPage={currentPage}/>
                 <UserCard onCurrentUserClick={onCurrentUserClick}/>
             </div>
             <div className="row" id="map-friend">
                 <MapContainer userId={activeUserID} className="map-container"/>
                 <FriendsList onFriendClick={onFriendClick} />
             </div>
-        
-            <RestaurantsList userId={activeUserID} canEdit={canEdit}/>
+            <div className="row">
+                <RestaurantsList userId={activeUserID} canEdit={canEdit}/>
+            </div>
         </div>
     )  
 }

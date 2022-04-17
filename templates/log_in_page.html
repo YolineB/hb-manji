@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div id="first-page" class="container">  
+<div id="first-page">  
   
-    <div id="log-in-form">
+    <div id="log-in-form" class="container">
     <form action="/login" method="POST"  id="log-in">
       <h1>Manji!</h1>
       
@@ -11,21 +11,21 @@
       
         <input id="field-email" type="text" name="email" required placeholder="Email">
       
-
       <p>
         <input type="password" name="password" placeholder="Password">
       </p>
       
-      <p>
-        <input type="submit" value="Log me in!" class="btn btn-primary">
-      </p>
+       <button  type="submit" value=""><div id="log-in-btn"> </div></button>
+
     </form>
 
-    <h2>Don't have an account? 
-      Create one here</h2>
-    <button href="/register" id="register-btn" >
-    <!-- <img height="100px" src="/static/images/manjiregister.svg" /> -->
-    </button>
+    <h4>or</h4>
+    
+    <form action="/register">
+      <button type="submit" >
+        <div id="register-btn"> </div>
+      </button>
+    </form>
     </div> 
        
 </div>

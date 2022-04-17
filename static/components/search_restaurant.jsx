@@ -12,13 +12,7 @@ function restChoice(idx,restaurantObj, favArr) {
         'restID' : restaurantObj['id'], 
         'chosenRestaurantObj' : restaurantObj
     }
-
-    let favoriteButton = <button 
-                            onClick={(evt) => addToFavList(evt.target,chosenRestaurant)} 
-                            className="btn btn-primary btn-sm" disabled={isFav}>
-                            {msg}
-                        </button> 
-    
+   
     return (
         <React.Fragment>
             <div className="col-sm-4" key={idx}>
@@ -30,14 +24,19 @@ function restChoice(idx,restaurantObj, favArr) {
                         <p className="card-text">{restaurantObj['location']['display_address']}</p>
                     </div>
                     <div className="card-footer text-center">
-                        {favoriteButton}
+                        { isFav && msg }
+                        { !isFav && 
+                            <button 
+                            onClick={(evt) => addToFavList(evt.target,chosenRestaurant)} 
+                            id="fav-btn">
+                            </button> 
+                        }
                     </div> 
                 </div>
             </div>
         </React.Fragment>
     )
 }
-
 
 function SearchForm({onSearch, onLoading}){
     const [term, setTerm] = React.useState('');
@@ -62,48 +61,58 @@ function SearchForm({onSearch, onLoading}){
 
    return (
        <React.Fragment>
-           <div className="container col" >
-                <h2>Add Restaurant</h2>
-                <div>
-                    <div className='row'>
-                        <label htmlFor="search-keyword">Search Name of Restaurant</label>
-                        <input id="search-keyword" onChange={(event) => setTerm(event.target.value)}
-                        type="text" name="search-keyword"></input>
-                    </div>
-                    <div className='row'>
-                        <label htmlFor="search-city"> City </label>
-                        <input id="search-city" onChange={(event) => setCity(event.target.value)} 
-                        type="text" name="search-city"></input>
-                    </div>
-                    <button type='button' onClick={submitSearch}>Search Restaurants </button>
+                <div className='row'>
+                    <h2>Search Name of Restaurant</h2>
+                    <input id="search-keyword" onChange={(event) => setTerm(event.target.value)}
+                    type="text" name="search-keyword"></input>
                 </div>
-            </div>
+                <div className='row'>
+                    <label htmlFor="search-city"> City </label>
+                    <input id="search-city" onChange={(event) => setCity(event.target.value)} 
+                    type="text" name="search-city"></input>
+                </div>
+                <button type='button' onClick={submitSearch}>
+                    <div id="submit-search"></div> 
+                </button>
+                <div id="cake"></div>
        </React.Fragment>
    )
 }
 
 
-//change to RestChoice to help make it a generator that will make a card with each button choice
 function SearchRestaurantContainer() {
     const [searchResults, setSearchResults] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(false);
+    const currentPage = "Restaurants to add to your list"
 
     const onSearch = (results) => setSearchResults(results)
     const onLoading = (loading) => setIsLoading(loading)
 
     return (
         <React.Fragment>
-            <SearchForm onSearch={onSearch} onLoading={onLoading}/>
-            <h2>Search Results</h2>
-            {isLoading && 'Loading...'}
-            {!isLoading &&
-                <div id="search-grid">
-                    {searchResults}
+            <div className="container" id="nav-profile">
+                <div className="row" >
+                    <NavBar canEdit={true} currentPage={currentPage}/>
                 </div>
-            }
+                <div className="row">
+                    <div className="col-md-3">
+                        <SearchForm onSearch={onSearch} onLoading={onLoading}/>
+                    </div>
+                    <div className="col-md-8 offset-1">
+                        <h2>Search Results</h2>
+                        {isLoading && 'Loading...'}
+                        {!isLoading &&
+                            <div id="search-grid">
+                                {searchResults}
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
         </React.Fragment>
     )
 }
 
 ReactDOM.render(<SearchRestaurantContainer  />, document.getElementById('search_restaurant'));
+
 

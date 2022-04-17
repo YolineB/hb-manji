@@ -1,26 +1,40 @@
 body {
     background-color: rgb(242, 226, 216);
+    background-image: url("/static/images/slices.png");
+    background-repeat: repeat;
     margin:5em;
-    margin-top: 0em;
-    text-align: center
+    margin-top: 10px;
+    text-align: center;
+    font-family: 'Avenir black';
+    color: #BD4A84;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Avenir medium', Arial, Helvetica, sans-serif;
+h1, h2, h3, h4, h5, h6, #current-page {
+    font-family: 'Avenir black', Arial, Helvetica, sans-serif;
     color: #6D1344;
     text-align: center;
+    margin: 10px;
 
 }
 
+button{
+    background: 0;
+    border:3px #6D1344
+}
+
+a{
+    text-decoration: none;
+}
 body #first-page {
     width: 100%;
     height: 700px;
     background: url("/static/images/manjillustrationlogin1.svg"), url("/static/images/manjillustrationlogin2.svg");
     background-repeat: no-repeat, no-repeat;
     background-size: cover;
+    margin: 0;
     background-position: 
-                -600px, 
-                300px;
+                -537px, 
+                291px;
 }
 
 #log-in-form{
@@ -28,27 +42,22 @@ body #first-page {
     background-color: transparent;
 }
 #register-btn{
-    background-image: url("/static/images/manjiregister.svg");
-    /* background-size: cover; */
+    background-image: url("/static/images/manjiregister.png");
+    background-size: cover;
     background-repeat: no-repeat;
-    width: 100%;
-    height: 500px;
+    width: 11em;
+    height: 3em;
     
 }
 
 #first-page{
     margin: 0px;
 }
-#left-sidebar{
-    background-image: url("/static/images/manjillustrationlogin1.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    width: 200px;;
-    height: 100%;
-    
-    
+
+.background #main-page{
+    background-color: blue;
 }
+
 
 input {
   border-radius: 25px;
@@ -60,7 +69,6 @@ input {
   font-family: 'Avenir medium', Arial, Helvetica, sans-serif sans-serif;
 }
 
-
 #first-page {
     text-align: center;
 }
@@ -70,29 +78,64 @@ nav{
     border: solid 3pt #ED9783;
     border-radius: 25px;
     text-align: left;
-
+    position: relative;
+    margin: 0%;
+    
 }
 
-.nav-container{
-    width: 200px
+
+#current-page{
+    text-align: right;
 }
-a.navbar-brand{
-    padding-left: 2em;
-}
+
 ul.navbar-nav{
     padding-left: 3em;
 }
 .navbar-brand-wrap{
     text-align: right;
 }
+#menu-icon{
+    height: 50px;
+    width:35px;
+}
+.navbar-light .navbar-toggler {
+    color: transparent;
+    border-color: transparent
+}
 
-.navbar-toggler-icon{
-    list-style: purple;
+#logo-img{
+    z-index: 7;
+    width: 11%;
+    height: 131%;
+}
+#nav-logo{
+    height: 100%;
+}
+.homepage-container{
+    position: relative;
+}
+
+
+#current-user-btn{
+    position: sticky;
+    top: 0;
+    text-align: center;
+    display: inline-flex;
+    align-content: stretch;
+    justify-content: center;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: row;
+    border: 7px solid #ED9783;
+    background-color: #ED9783;
+    box-shadow: 0px 0px 3px #ED9783;
+
 }
 
 #map-friend{
     height: 400px;
     justify-content: space-evenly;
+    margin-top: 25px;
 }
 
 .map-container{
@@ -100,86 +143,230 @@ ul.navbar-nav{
     border-radius: 25px;
     width: 700px;
     height: 100%;
-    margin: 10px
+    margin: 10px;
+    box-shadow: 0px 0px 10px #6D1344;
 }
 
 #map-search{
     position: absolute;
-    width: 14%;
+    width: 15%; 
+    height: 45px;
 }
 
 .friend-container{
     text-align: center;
     border: solid 5px #DB6B63;
+    background-color: #DB6B63;
     border-radius: 25px;
     margin: 10px;
     height: 100%;
     padding: 10px;
 }
 
-.restaurants-container{
+/* .restaurants-container{
     border: solid 5px purple;
     padding: 2px;
     border-radius: 25px;
+    margin: 20px;
+} */
+
+form{
+    margin: 0;
 }
-
-
 
 #friends{
     margin: 10px;
 }
 
+#search-restaurants{
+    background-image: url("/static/images/manjibuttonadd1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 5em;
+    height: 3em;
+}
+
 #search-grid {
     display: grid;
     grid-template-columns: 4fr 4fr 4fr;
-    grid-gap: 20px;
+    grid-gap: 20px; 
     align-items: center;
     background-color:#ED9783;
     border-radius: 25px;
-}
-
-.restaurant-grid{
-    display: grid;
-    grid-template-columns: 4fr 4fr 4fr;
-    grid-gap: 10px;
-    align-items: center;
-    border-radius: 25px;
+    justify-content: space-evenly;
 }
 
 
 .card {
     border-radius: 25px;
-    border: 3px solid #DB6B63;
+    border: 5px solid #BD4A84;
     background-color:#F3E2D9;
-    width: 11em;
+    width: 15em;
     margin: 2em;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+    min-height: 15em;
+    max-height: 15em;
+    overflow: scroll;
+    box-shadow: 0px 0px 10px #BD4A84;
 }
 
-.card-body {
-    min-height: 12em;
-}
 
-.card-footer{
-    padding: 0.5rem 1rem;
-    background-color:#6D1344;
-    border-top: 1px solid rgba(0,0,0,.125);
-    border-bottom: 25px;
-}
+/* .restaurant-grid{
+    display: grid;
+    grid-template-columns: 4fr 4fr 4fr;
+    grid-gap: 10px;
+    align-items: center;
+    border-radius: 25px;
+} */
 
 
 #restaurant-container{
+    display: grid;
+    grid-template-columns: 3fr 3fr 3fr 3fr;
     border: 3px solid #BD4A84;
     border-radius: 25px;
     background-color: #DB6B63;
     height: 30em;
     overflow: scroll;
-    margin: 50px;
+    margin: 20px;
 }
 
-#city-filter{
-    position: sticky;
-    top:0;
-    z-index: 2;
+#comment-box{
+    overflow: scroll;
+    min-height: 5em;
+    margin: 12px;
+    padding: 2px;
+    border: 3px solid #ED9783;
+    background-color: #FBE7B9;
+    border-radius: 25px;
+    color:#DB6B63;
+    z-index: 6;
 }
+
+#comment-edit{
+    background-image: url(/static/images/comment.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 50px;
+    height: 38px;
+}
+
+.card-footer{
+    background-color:#6D1344;
+    margin-top: auto;
+    color:#ED9783;
+    height: 50px;
+    font-family: 'Avenir medium', Arial, Helvetica, sans-serif sans-serif;
+    
+}
+
+.card-footer:last-child {
+    border-top-left-radius: 30%;
+    border-top-right-radius: 30%;
+}
+
+#card-body{
+    height: 100%;
+}
+
+
+#restaurant-list-btns{
+    margin: 50px;
+    margin-bottom: 0px;
+}
+
+#restaurant-edit{
+    background-image: url("/static/images/manjibuttonedit.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 5%;
+    height: 44px;
+    margin: 5px;
+}
+
+#fav-btn {
+    background-image: url("/static/images/manjibuttonstar.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 2em;
+    height: 2em;
+    color: white;
+    white-space: nowrap;
+}
+
+#delete{
+    background-image: url("/static/images/trashcan.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 20px;
+    height: 30px;
+}
+
+#restuarant-comment-modal{
+    z-index: 8
+}
+
+
+#log-in-btn {
+    background-image: url("/static/images/manjilogo.png");
+    background-size: cover;
+    width: 11em;
+    height: 3.5em;
+}
+
+#submit-search{
+    background-image: url("/static/images/manjibuttonsubmit.png");
+    background-size: cover;
+    width: 10em;
+    height: 4em;
+}
+
+#cake{
+    background-image: url("/static/images/manjicake.svg");
+    background-size: cover;
+    height: 20em;
+    background-repeat: no-repeat;
+}
+
+.city-filter{
+    background-color:none;
+    border: none;
+    color: #6D1344;
+    font-style: oblique;
+    background-image: url("/static/images/manjifilterbycity.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 50px;
+    box-shadow: 0px 0px 5px #ED9783;
+
+}
+
+.city-filter:focus {
+    background-color:#FBE7B9;
+    border: 3px solid #ED9783;
+    background-image: none;
+}
+
+button:hover {
+    transform: skew(-10deg);
+}
+
+a:hover {
+    transform: skew(-10deg);
+}
+
+#profile-follow-btn{
+    position: sticky;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0px 0px 3px #ED9783;
+    background-image: url("/static/images/manjibuttonfollow.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 64px;
+    margin-top: 10px;
+}
+
 

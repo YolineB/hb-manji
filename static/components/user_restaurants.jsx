@@ -40,50 +40,54 @@ function RestaurantItem({restaurant, editEnabled, canEdit, onRestaurantCommentCl
     const onCommentClick = () => onRestaurantCommentClick(restaurant.id)
 
     return (
-        <div>
+        <React.Fragment>
             <div className="card text-center">
-                <div className="card-body overflow-auto">
-                    <a href={restaurant.url} target="_blank">
-                        <h5 className="restaurant-title">{restaurant.name}</h5>
-                    </a>
+                    <div id="card-body-title">
+                        <a href={restaurant.url} target="_blank">
+                            <h5 className="restaurant-title">{restaurant.name}</h5>
+                        </a>
+                    </div>
                     <p className="card-text"> {restaurant.city} </p>
-                    <div className="comment-box">
+                    <div id="comment-box">
                         {restaurant.comment}
                         {canEdit &&
-                            <div id="comment-edit"> 
+                            
                                 <button
                                     onClick={onCommentClick}
-                                    className="btn btn-primary btn-sm"
+                                    className="btn"
+                                    id="comment-edit"
                                     type="button"
                                     data-bs-toggle="modal"
                                     data-bs-target="#restaurantCommentModal"
                                 >
-                                    Edit
                                 </button>
-                            </div>
+                            
                         }
                     </div>
-                </div>
-                <div className="card-footer text-center">
-                {
-                editEnabled && canEdit &&
-                <button
-                    onClick={(evt) => deleteFromFavList(evt.target,chosenRest)}
-                    className='btn btn-primary btn-sm' type='button' id='delete'>
-                    Remove
-                </button>
-            }
-            {
-                !canEdit && !restaurant.favorited && 
-                <button
-                    onClick={(evt) => addToFavList(evt.target,chosenRest)}
-                    className="btn btn-primary btn-lg">
-                    Add to favorites!
-                </button>
-            }
-                </div>
+                    <div className="card-footer">
+                    
+                        {
+                        editEnabled && canEdit &&
+                        <button
+                            onClick={(evt) => deleteFromFavList(evt.target,chosenRest)}
+                            className='btn btn-sm' type='button' id='delete'>
+                        </button>
+                    }
+                    {
+                        !canEdit && !restaurant.favorited && 
+                        <button
+                            onClick={(evt) => addToFavList(evt.target,chosenRest)}
+                            className="btn btn-sm"
+                            id="fav-btn">
+                        </button>
+                    }
+                    {
+                        !canEdit && restaurant.favorited && 
+                            <span>Already a favorite!</span>
+                    }
+                    </div>
             </div>
-        </div>
+        </React.Fragment>
     );
 }
 
@@ -108,7 +112,43 @@ function RestaurantsList({userId, canEdit}) {
     return (
         <React.Fragment>
             <RestaurantCommentModal restaurant={selectedRestaurant}/>
-            <div id="restaurant-container"> 
+            <div id="restaurant-list-btns">
+                <input
+                    className="city-filter p-2"
+                    type="text"
+                    onChange={(evt)=> setCityFilter(evt.target.value)}
+                />
+                <a id="search-restaurants" className="btn p-2" href="/search_restaurant" ></a>
+                    {canEdit && 
+                        <button 
+                            className="btn" 
+                            id="restaurant-edit" 
+                            onClick ={() => 
+                            setEditEnabled(!editEnabled)} > 
+                        </button>
+                    }
+            </div> 
+            <div id="restaurant-container" className="restaurant-grid">
+                    {filterRestaurants().map(
+                        restaurant =>
+                            <RestaurantItem
+                                key={restaurant.id}
+                                restaurant={restaurant}
+                                editEnabled={editEnabled}
+                                canEdit={canEdit}
+                                onRestaurantCommentClick={onRestaurantCommentClick}
+                            />
+                        )
+                    }
+            </div>
+        </React.Fragment>
+    )
+}
+
+{/* <React.Fragment>
+            <RestaurantCommentModal restaurant={selectedRestaurant}/>
+            <div id="restaurant-container" className="container"> 
+                <div className="row"></div>
                 <div id="city-filter">
                     <input
                         className="col-4"
@@ -121,15 +161,14 @@ function RestaurantsList({userId, canEdit}) {
                         <button 
                             className="btn btn-danger btn-sm" 
                             id="restaurant_edit" 
-                            onClick ={() => setEditEnabled(!editEnabled)} > 
+                            onClick ={() => 
+                            setEditEnabled(!editEnabled)} > 
                             Edit List 
                         </button>
                     }
                 </span>
-                <a class="btn btn-info btn-lg" href="/search_restaurant" > Search restaurants to add! </a>
+                <a id="search-restaurants" className="btn" href="/search_restaurant" ></a>
                 </div>  
-
-
 
                 <div className="restaurant-grid">
                     {filterRestaurants().map(
@@ -145,6 +184,4 @@ function RestaurantsList({userId, canEdit}) {
                     }
                 </div>
             </div>
-        </React.Fragment>
-    )
-}
+        </React.Fragment> */}

@@ -8,17 +8,12 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'nav_bar.html' %}
-    
-    <section id="homepage"></section>
-    
-    <div class="container">
-    
-        <input type="hidden" id="user_id" value="{{user.user_id}}"/> 
-      
+<div class="container" id="main-page">
+    <input type="hidden" id="user_id" value="{{user.user_id}}"/> 
+        <section id="homepage">
+        </section>
         <div id="friend_connect_link">
             <div className='row'></div>
-            <a class="btn btn-success btn-lg" href="/my_manji/{{user.user_id}}">Profile</a> 
         </div>
     
     </div>
@@ -33,8 +28,9 @@
 <script
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqSPEmkKzJZU1oytnJ2d45AThGnsYaja4&libraries=places"
 ></script>
-
 <script src="/static/components/map_container.jsx" type="text/jsx"></script>
+
+<script src="/static/components/navbar.jsx" type="text/jsx"> </script>
 <script src="/static/components/user_restaurants.jsx" type="text/jsx"></script>
 <script src="/static/components/friends.jsx" type="text/jsx"></script>
 <script src="/static/components/homepage.jsx" type="text/jsx"></script>

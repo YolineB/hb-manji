@@ -3,48 +3,33 @@
 {% block title %}Homepage{% endblock %}
 
 {% block body %}
-    {% include 'nav_bar.html' %}
+
+
+
+{%if 'user_id' not in session %}
 
     <h4 class="display-1"> {{name}}'s profile</h4>
-
-
-    {%if 'user_id' not in session %}
-
-        <div>
-            <div class="alert alert-info" role="alert">
-                You are seeing a limited view. <a href="/" class="alert-link">Sign-in/Register</a> to access full features.
-            </div>
-
-            <ul>
-                {% for rest in fav_list %}
-                <li>{{ rest }}</li>
-                {% endfor %}
-            </ul>
-
+    <div>
+        <div class="alert alert-info" role="alert">
+            You are seeing a limited view. <a href="/" class="alert-link">Sign-in/Register</a> to access full features.
         </div>
-    {% else %}
+
+        <ul>
+            {% for rest in fav_list %}
+            <li>{{ rest }}</li>
+            {% endfor %}
+        </ul>
+
+    </div>
+{% else %}
         <input type="hidden" id="user_id" value="{{user_id}}"/>
         <input type="hidden" id="current_user_id" value="{{session['user_id']}}"/>
-        <div class="container">
-            {%if user_id != session['user_id'] %}
-                {%if is_friend %}
-                    Already friends!
-                {% else %}
-                    <div id='connect_friend'>
-                        <a class="btn btn-success btn-lg" href="/add_friend_to_list/{{user_id}}" >Add friend</a>
-                    </div>
-                {%endif%}
-            {% else %}
-                    <div id="user_share_link">
-                        Share your friendship link! Then friends can see your favorites
-                        Copy this:
-                        my_manji/{{user_id}}
-                    </div>
-            {%endif%}
-            <div id="restaurant_list"> </div>
-        </div>
+        <input type="hidden" id="name" value="{{name}}"/>
+        <input type="hidden" id="isFriend" value="{{is_friend}}"/>
+        
+        <div id="profile-page"> </div>
        
-    {%endif%}
+{%endif%}
     
 {% endblock %}
 
@@ -53,7 +38,7 @@
 <script
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqSPEmkKzJZU1oytnJ2d45AThGnsYaja4&libraries=places"
 ></script>
-
+<script src="/static/components/navbar.jsx" type="text/jsx"> </script>
 <script src ="/static/components/useRestaurants.jsx"></script>
 <script src="/static/components/map_container.jsx" type="text/jsx"></script>
 <script src ="/static/edit_restaurant_fav.js"></script>

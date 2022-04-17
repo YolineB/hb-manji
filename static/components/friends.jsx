@@ -21,7 +21,7 @@ function FriendsList({onFriendClick}){
 
     return (
         <React.Fragment>
-        <div className="friend-container justify-content-end col-3">
+        <div id="friend-list" className="friend-container justify-content-end col-3">
             <h2>Friends' List</h2> 
             <div className="grid">
                 {friendArr.map((friend) => 

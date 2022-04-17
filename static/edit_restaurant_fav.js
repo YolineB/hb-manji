@@ -14,6 +14,8 @@ function addToFavList(btn,selectedRest){
         if (answer === "newFav") {
             btn.innerHTML = 'Added!!';
             btn.disabled = true;
+            btn.style.display = 'Added';
+            btn.style.background = "transparent";
         } else {
             alert(`${selectedRest['name']} has already been added to your list!`)
         }
@@ -32,7 +34,7 @@ function deleteFromFavList(btn,selectedRest){
     .then(response => response.text())
     .then(answer => {
         if (answer === "removed") {
-            btn.innerHTML = 'removed';
+            btn.innerHTML = '';
             btn.disabled = true;
         } else {
             alert('Error from deleteFromFav js function')

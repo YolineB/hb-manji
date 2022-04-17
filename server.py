@@ -201,7 +201,8 @@ def make_a_friendship(friend_id):
     else:
         flash('Already homies')
   
-    return redirect(f'/my_manji/{friend_id}')
+    return "Connected!"
+    # return redirect(f'/my_manji/{friend_id}')
 
 @app.route('/my_profile')
 def my_profile():

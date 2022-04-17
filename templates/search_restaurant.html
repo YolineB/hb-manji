@@ -3,18 +3,12 @@
 
 {% block body %}
 
-{% include 'nav_bar.html' %}
-
-<div class = "container col">
-    <h1> Restaurants to add to {{user_id}}'s list</h1>
-
     <div id="search_restaurant"></div>
-
-</div>
-
+    
 {% endblock %}
 
 {% block js %}
+<script src="/static/components/navbar.jsx" type="text/jsx"> </script>
 <script src ="/static/edit_restaurant_fav.js"></script>
 <script src="/static/components/search_restaurant.jsx" type="text/jsx"></script>
 
