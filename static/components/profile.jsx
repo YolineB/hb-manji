@@ -9,6 +9,7 @@ function ProfileCard({canEdit, userID}){
         .then(answer => {
             if (answer === "Connected!") {
                 evt.disabled = true;
+                alert("Connected!")
             } else {
                 alert('Error from profile.jsx request')
             }
@@ -35,7 +36,7 @@ function ProfileCard({canEdit, userID}){
                 onClick={() => {
                     navigator.clipboard.writeText(`http://localhost:5000/my_manji/${userID}`);
                     }} >
-                Share your link
+                    <h6 id="user-name">Share your link</h6>
                 </button>
              </div>
         }

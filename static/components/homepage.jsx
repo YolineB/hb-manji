@@ -13,7 +13,7 @@ function UserCard({onCurrentUserClick}) {
     return (
         <div id="current-user-btn" className="col-2 offset-1">
             <button className="col-10" onClick={() => onCurrentUserClick()}>
-                <h2>{userInfo.first}</h2>
+                <h2 id="user-name">{userInfo.first}</h2>
             </button>
          </div> 
     ) 

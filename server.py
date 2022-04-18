@@ -197,7 +197,6 @@ def make_a_friendship(friend_id):
     if user_friend_updated is not None:
         db.session.add(user_friend_updated)
         db.session.commit()
-        flash('You have added your friend!')
     else:
         flash('Already homies')
   

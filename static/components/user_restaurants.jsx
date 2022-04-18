@@ -101,8 +101,6 @@ function RestaurantsList({userId, canEdit}) {
         (restaurant) => restaurant.city.toLowerCase().startsWith(cityFilter.toLowerCase())
     );
 
-    if (restaurants.length === 0) return "No favorites yet";
-
     const onRestaurantCommentClick = (restaurant_id) => setSelectedRestaurant(
         restaurants.find(
             restaurant => restaurant.id === restaurant_id
@@ -129,6 +127,11 @@ function RestaurantsList({userId, canEdit}) {
                     }
             </div> 
             <div id="restaurant-container" className="restaurant-grid">
+                    {(restaurants.length === 0) &&
+                        <div id="empty-restaurants">
+                            No favorites yet
+                        </div>
+                    }
                     {filterRestaurants().map(
                         restaurant =>
                             <RestaurantItem
