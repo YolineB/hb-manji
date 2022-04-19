@@ -1,5 +1,5 @@
-# Manji ![logo image](static/md_images/manji.png | width=100px)
-
+# Manji ![logo image](static/md_images/manji.png)
+<img src="static/md_images/manji.png" width=100px>
 ![homepage image](static/md_images/homepage.png)
 
 Help narrow down your restaurant choice woes with the Manji App!
