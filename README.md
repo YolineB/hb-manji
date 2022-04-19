@@ -86,7 +86,8 @@ Hi! My name is Yoline, and I am excited to share Manji. Manji is my first full-s
 Let's connect via [Linkedin](https://www.linkedin.com/in/yolineb/)!
 
 
+Graphic design and icons were created by Ilon Wright, check out a sneak peek below:
 
-|Graphic design and icons were created by Ilon Wright, check out a sneak peek below:|
-|:-------------------------:|:-------------------------:|:-------------------------:|
-|<img width="1604" alt="log-in" src="/static/md_images/homepage.png">  log-in |  <img width="1604" alt="main" src="/static/md_images/main.png"> main page | <img width="1604" alt="add" src="/static/md_images/add.png"> add restauarants |
+<img width="25%" alt="log-in" src="/static/md_images/homepage.png"> 
+<img width="25%" alt="main" src="/static/md_images/main.png">
+<img width="25%" alt="add" src="/static/md_images/add.png">
