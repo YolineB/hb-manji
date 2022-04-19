@@ -4,18 +4,17 @@
 
 Help narrow down your restaurant choice woes with the Manji App!
 
-Manji is a web application built with React and Flask that allows you to build a list of your favorite restaurants and share that list with others. 
-Users can filter restaurant lists by city, zone into specific locations, and even see what their friends thoughts were on a favorited restaurant. 
+Manji is a web application built with React and Flask that allows you to build a list of your favorite restaurants and share that list with others. Users can filter restaurant lists by city, zone into specific locations, and even see what their friends thoughts were on a favorited restaurant. 
 
 Expand your food adventures with Manji. 
 
 ### Table of Contents 📖
 
-[Tech Stack](#tech-stack-💻)
-[APIs](#apis-📚)
-[Features](#features-🪄)
-[Set Up](#set-up-🛠️)
-[About me](#about-me-🧘‍♀️)
+-[Tech Stack](#tech-stack-💻)
+-[APIs](#apis-📚)
+-[Features](#features-🪄)
+-[Set Up](#set-up-🛠️)
+-[About me](#about-me-🧘‍♀️)
 
 
 ### Tech Stack 💻
@@ -28,8 +27,8 @@ Expand your food adventures with Manji.
 
 * [Yelp Fusion API](https://www.yelp.com/developers/documentation/v3/get_started)
 * [Google Maps API](https://console.developers.google.com/)
-	-Maps JavaScript API
-	-Places API
+	⋅⋅*Maps JavaScript API
+	⋅⋅*Places API
 
 ### Features 🪄 
 #### [See a full video walkthrough](https://www.youtube.com/watch?v=UilGw6Yc-WI)
