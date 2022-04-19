@@ -1,6 +1,6 @@
-# Manji ![logo image](/md.images/manji.png)
+# Manji ![logo image](static/md_images/manji.png)
 
-![homepage image](/md.images/homepage.png)
+![homepage image](static/md_images/homepage.png)
 
 Help narrow down your restaurant choice woes with the Manji App!
 
@@ -11,11 +11,11 @@ Expand your food adventures with Manji.
 
 ### Table of Contents 📖
 
->[Tech Stack](#tech-stack-💻)
->[APIs](#apis-📚)
->[Features](#features-🪄)
->[Set Up](#set-up-🛠️)
->[About me](#about-me-🧘‍♀️)
+[Tech Stack](#tech-stack-💻)
+[APIs](#apis-📚)
+[Features](#features-🪄)
+[Set Up](#set-up-🛠️)
+[About me](#about-me-🧘‍♀️)
 
 
 ### Tech Stack 💻
@@ -32,23 +32,21 @@ Expand your food adventures with Manji.
 	-Places API
 
 ### Features 🪄 
-##### [See a full video walkthrough](https://www.youtube.com/watch?v=UilGw6Yc-WI)
+#### [See a full video walkthrough](https://www.youtube.com/watch?v=UilGw6Yc-WI)
 **Once a user registers and logs in, they are able to access the following:**
 
-* Navbar: allows the user to add new restaurants, see their profile link, and log out
-* Map: a dynamic map that has markers reflecting user restaurants with the ability to search by city and see restaurant info and user comment
-* Restaurants List: list of favorited restaurants by user, where you can edit comments, delete favorites
-* Friend's List: list of connected friends, where you can click each name to view their favorites and even add to your own list
-* Use the search page to add new restuarants in your list
+* Navbar - allows the user to add new restaurants, see their profile link, and log out
+* Map - a dynamic map that has markers reflecting user restaurants with the ability to search by city and see restaurant info and user comment
+* Restaurants List - list of favorited restaurants by user, where you can edit comments, delete favorites
+* Friend's List - List of connected friends, where you can click each name to view their favorites and even add to your own list
+* Search Page - Use the search page to add new restuarants to your favorites list
 
 ### Set Up 🛠️
 1. clone repository 
-```
-git clone https://github.com/YolineB/hb-manji
-```
-2. create virtualenv and activate it
 	```
 	git clone https://github.com/YolineB/hb-manji
+	```
+2. create virtualenv and activate it
 	```
 	virtualenv env
 	source env/bin/activate
@@ -86,6 +84,6 @@ git clone https://github.com/YolineB/hb-manji
 
 ### About Me 🧘‍♀️
 
-Hi! My name is Yoline, and I am excited to share Manji. Manji is my first full-stack web application that built in 4-weeks that I built while attending Hackbright, a software engineering fellowship.
+Hi! My name is Yoline, and I am excited to share Manji. Manji is my first full-stack web application that I built in 4-weeks while attending Hackbright, a software engineering fellowship.
 
 Let's connect via [Linkedin](https://www.linkedin.com/in/yolineb/)!
