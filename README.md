@@ -1,4 +1,4 @@
-# Manji ![logo image](static/md_images/manji.png)
+# Manji ![logo image](static/md_images/manji.png | width=100)
 
 ![homepage image](static/md_images/homepage.png)
 
