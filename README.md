@@ -1,7 +1,5 @@
 # Manji <img src="static/md_images/manji.png" width=100px>
 
-![homepage image](static/md_images/homepage.png)
-
 Help narrow down your restaurant choice woes with the Manji App!
 
 Manji is a web application built with React and Flask that allows you to build a list of your favorite restaurants and share that list with others. Users can filter restaurant lists by city, zone into specific locations, and even see what their friends thoughts were on a favorited restaurant. 
@@ -10,11 +8,11 @@ Expand your food adventures with Manji.
 
 ### Table of Contents 📖
 
-*[Tech Stack](#tech-stack-💻)
-*[APIs](#apis-📚)
-*[Features](#features-🪄)
-*[Set Up](#set-up-🛠️)
-*[About me](#about-me-🧘‍♀️)
+* [Tech Stack](#tech-stack-💻)
+* [APIs](#apis-📚)
+* [Features](#features-🪄)
+* [Set Up](#set-up-🛠️)
+* [About me](#about-me-🧘‍♀️)
 
 
 ### Tech Stack 💻
@@ -86,3 +84,9 @@ Expand your food adventures with Manji.
 Hi! My name is Yoline, and I am excited to share Manji. Manji is my first full-stack web application that I built in 4-weeks while attending Hackbright, a software engineering fellowship.
 
 Let's connect via [Linkedin](https://www.linkedin.com/in/yolineb/)!
+
+
+
+|Graphic design and icons were created by Ilon Wright, check out a sneak peek below:|
+|:-------------------------:|:-------------------------:|:-------------------------:|
+|<img width="1604" alt="log-in" src="/static/md_images/homepage.png">  log-in |  <img width="1604" alt="main" src="/static/md_images/main.png"> main page | <img width="1604" alt="add" src="/static/md_images/add.png"> add restauarants |
