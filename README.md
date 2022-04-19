@@ -10,11 +10,11 @@ Expand your food adventures with Manji.
 
 ### Table of Contents 📖
 
--[Tech Stack](#tech-stack-💻)
--[APIs](#apis-📚)
--[Features](#features-🪄)
--[Set Up](#set-up-🛠️)
--[About me](#about-me-🧘‍♀️)
+*[Tech Stack](#tech-stack-💻)
+*[APIs](#apis-📚)
+*[Features](#features-🪄)
+*[Set Up](#set-up-🛠️)
+*[About me](#about-me-🧘‍♀️)
 
 
 ### Tech Stack 💻
