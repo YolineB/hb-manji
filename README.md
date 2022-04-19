@@ -25,8 +25,8 @@ Expand your food adventures with Manji.
 
 * [Yelp Fusion API](https://www.yelp.com/developers/documentation/v3/get_started)
 * [Google Maps API](https://console.developers.google.com/)
-	⋅⋅*Maps JavaScript API
-	⋅⋅*Places API
+	* Maps JavaScript API
+	* Places API
 
 ### Features 🪄 
 #### [See a full video walkthrough](https://www.youtube.com/watch?v=UilGw6Yc-WI)
