@@ -11,8 +11,8 @@ Expand your food adventures with Manji.
 * [Tech Stack](#tech-stack-)
 * [APIs](#apis-)
 * [Features](#features-)
-* [Set Up](#set-up-)
-* [About me](#about-me-🧘)
+* [Set Up](#set-up-%EF%B8%8F)
+* [About me](#about-me-%EF%B8%8F)
 
 
 ### Tech Stack 💻
